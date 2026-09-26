@@ -1,3 +1,37 @@
 # Delta-bedrani
 
-Exact delta-matroid research framework. Initial scaffold.
+Exact research micro-framework for finite delta-matroids, matching delta-matroids, and exchange-graph experiments.
+
+## Design boundary
+
+The package deliberately separates three layers:
+
+1. **Exact combinatorial authority** — deterministic matching subset-DP and explicit feasible sets.
+2. **Exact algebraic certificate** — one global randomized Tutte matrix over a finite field, modular determinant, and PPT certificates.
+3. **Structural experiments** — Bouchet symmetric exchange, Wenzel strong simultaneous exchange, and exchange-graph analysis.
+
+A nonzero finite-field Tutte determinant is a certificate of feasibility. A zero randomized determinant is **UNKNOWN**, not an infeasibility certificate.
+
+## Current API
+
+```python
+from delta_matroid import MatchingDeltaMatroid, complete_graph
+
+D = complete_graph(6).delta_matroid()
+print(D.summary())
+print(D.verify_delta_axiom())
+print(D.verify_wenzel())
+```
+
+The matching layer uses the deterministic recurrence:
+
+`S feasible iff a fixed v in S has a neighbor u in S with S-{u,v} feasible.`
+
+For an explicit family, `delete`, `contract`, `restrict`, `twist`, and `direct_sum` are exact set-system operations.
+
+## Deliberate non-goals in v0.1
+
+- No claim that randomized Tutte enumeration is exact-complete.
+- No heuristic pruning based on a zero PPT entry.
+- No generic large-scale explicit exchange graph materialization.
+- No claim to implement every representation class of linear delta-matroids.
