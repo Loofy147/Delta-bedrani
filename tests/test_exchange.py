@@ -17,15 +17,15 @@ def test_even_neighbor_definition():
     assert engine.degree(0) == 2
 
 
-def test_generic_one_and_two_element_exchanges_without_empty_set():
+def test_generic_one_and_two_element_exchanges():
     feasible = bytearray(1 << 3)
     feasible[0b001] = 1
-    feasible[0b110] = 1
+    feasible[0b010] = 1
+    feasible[0b111] = 1
     engine = BitmaskExchangeEngine(3, feasible, even=False)
 
-    assert engine.component_size(0b001) == 2
-    assert engine.is_connected(0b001)
-    assert engine.shortest_path(0b001, 0b110) == (0b001, 0b110)
+    assert set(engine.neighbors(0b001)) == {0b010, 0b111}
+    assert engine.component_size(0b001) == 3
 
 
 def test_shortest_path_and_diameter():
@@ -66,3 +66,11 @@ def test_diameter_guard():
     assert engine.feasible_count() == 2048
     with pytest.raises(ValueError, match="exact diameter disabled"):
         engine.diameter(max_vertices=512)
+
+
+def test_even_flag_accepts_odd_parity_uniform_family():
+    feasible = bytearray(1 << 2)
+    feasible[0b01] = 1
+    feasible[0b10] = 1
+    engine = BitmaskExchangeEngine(2, feasible, even=True)
+    assert set(engine.neighbors(0b01)) == {0b10}
