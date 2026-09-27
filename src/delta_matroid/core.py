@@ -215,6 +215,54 @@ class DeltaMatroid:
                     q.append(G)
         return len(seen) == len(self._feasible)
 
+    def theorem_distance(self, source: SetLike, target: SetLike) -> int:
+        """Exact exchange-graph distance for any even delta-matroid.
+
+        Wenzel strong exchange implies a path that reduces symmetric
+        difference by two at every step. Every basis-graph edge changes
+        exactly two elements, so the lower and upper bounds coincide.
+        """
+        if not self.is_even():
+            raise ValueError("theorem distance requires an even delta-matroid")
+        s, t = frozenset(source), frozenset(target)
+        if s not in self._feasible or t not in self._feasible:
+            raise ValueError("Both endpoints must be feasible.")
+        return len(s ^ t) // 2
+
+    def theorem_shortest_path(
+        self,
+        source: SetLike,
+        target: SetLike,
+    ) -> tuple[frozenset[Element], ...]:
+        """Construct an exact shortest path using Wenzel exchange."""
+        if not self.is_even():
+            raise ValueError("theorem path requires an even delta-matroid")
+        current = frozenset(source)
+        target = frozenset(target)
+        if current not in self._feasible or target not in self._feasible:
+            raise ValueError("Both endpoints must be feasible.")
+        path = [current]
+        while current != target:
+            diff = current ^ target
+            x = next(iter(diff))
+            # Wenzel guarantees that at least one y in diff\{x}
+            # makes current Delta {x,y} feasible (and, in fact, also
+            # makes the target endpoint feasible after the same exchange).
+            for y in diff:
+                if y == x:
+                    continue
+                candidate = current ^ {x, y}
+                if candidate in self._feasible:
+                    current = candidate
+                    path.append(current)
+                    break
+            else:
+                raise RuntimeError(
+                    "Wenzel exchange step not found; "
+                    "the family or verifier invariant is inconsistent."
+                )
+        return tuple(path)
+
     def shortest_path(self, source: SetLike, target: SetLike) -> tuple[frozenset[Element], ...]:
         s, t = frozenset(source), frozenset(target)
         if s not in self._feasible or t not in self._feasible:
