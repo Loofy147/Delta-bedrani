@@ -8,7 +8,7 @@ The package deliberately separates three layers:
 
 1. **Exact combinatorial authority** — deterministic matching subset-DP and explicit feasible sets.
 2. **Exact algebraic certificate** — one global randomized Tutte matrix over a finite field, modular determinant, and PPT certificates.
-3. **Structural experiments** — Bouchet symmetric exchange, Wenzel strong simultaneous exchange, and lazy exchange-graph analysis.
+3. **Structural experiments** — Bouchet symmetric exchange, Wenzel strong simultaneous exchange, and exchange-graph analysis.
 
 A nonzero finite-field Tutte determinant is a certificate of feasibility. A zero randomized determinant is **UNKNOWN**, not an infeasibility certificate.
 
@@ -18,31 +18,16 @@ A nonzero finite-field Tutte determinant is a certificate of feasibility. A zero
 from delta_matroid import MatchingDeltaMatroid, complete_graph
 
 D = complete_graph(6).delta_matroid()
-engine = D.exchange_engine()
-
 print(D.summary())
-print(engine.feasible_count())
-print(engine.is_connected())
-print(engine.diameter(max_vertices=512))
+print(D.verify_delta_axiom())
+print(D.verify_wenzel())
 ```
 
 The matching layer uses the deterministic recurrence:
 
 `S feasible iff a fixed v in S has a neighbor u in S with S-{u,v} feasible.`
 
-The exchange engine keeps feasible vertices as subset bitmasks and generates exchange neighbors lazily. It never materializes all graph edges.
-
 For an explicit family, `delete`, `contract`, `restrict`, `twist`, and `direct_sum` are exact set-system operations.
-
-## Benchmarking
-
-```bash
-PYTHONPATH=src python bench_exchange.py --diameter-limit 512
-```
-
-The benchmark records feasible-set count, connectivity, feasible-table construction time, component traversal time, and exact diameter when the configured vertex guard permits it.
-
-The diameter guard is a deliberate complexity boundary, not an approximation.
 
 ## Deliberate non-goals in v0.1
 

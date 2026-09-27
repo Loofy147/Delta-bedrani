@@ -25,8 +25,8 @@ class BitmaskExchangeEngine:
         expected = 1 << n
         if len(feasible_masks) != expected:
             raise ValueError(f"feasible mask table must have length {expected}")
-        if not feasible_masks[0]:
-            raise ValueError("the empty mask must be feasible")
+        if not any(feasible_masks):
+            raise ValueError("the feasible mask table must contain at least one vertex")
         self.n = n
         self.size = expected
         self.feasible = feasible_masks
@@ -80,9 +80,12 @@ class BitmaskExchangeEngine:
     def degree(self, mask: int) -> int:
         return sum(1 for _ in self.neighbors(mask))
 
-    def component_size(self, source: int = 0) -> int:
-        if source not in self:
+    def component_size(self, source: int | None = None) -> int:
+        if source is None:
+            source = next(self.iter_vertices(), None)
+        if source is None or source not in self:
             raise ValueError("source must be feasible")
+
         seen = bytearray(self.size)
         seen[source] = 1
         q = deque([source])
@@ -97,7 +100,7 @@ class BitmaskExchangeEngine:
                     q.append(v)
         return reached
 
-    def is_connected(self, source: int = 0) -> bool:
+    def is_connected(self, source: int | None = None) -> bool:
         return self.component_size(source) == self.feasible_count()
 
     def shortest_path(self, source: int, target: int) -> tuple[int, ...]:

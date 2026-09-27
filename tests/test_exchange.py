@@ -17,15 +17,15 @@ def test_even_neighbor_definition():
     assert engine.degree(0) == 2
 
 
-def test_generic_one_and_two_element_exchanges():
+def test_generic_one_and_two_element_exchanges_without_empty_set():
     feasible = bytearray(1 << 3)
-    feasible[0] = 1
-    feasible[1] = 1
+    feasible[0b001] = 1
     feasible[0b110] = 1
     engine = BitmaskExchangeEngine(3, feasible, even=False)
 
-    assert set(engine.neighbors(0)) == {1}
-    assert set(engine.neighbors(1)) == {0, 0b110}
+    assert engine.component_size(0b001) == 2
+    assert engine.is_connected(0b001)
+    assert engine.shortest_path(0b001, 0b110) == (0b001, 0b110)
 
 
 def test_shortest_path_and_diameter():
