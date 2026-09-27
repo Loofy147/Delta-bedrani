@@ -39,3 +39,10 @@ def test_exchange_graph():
     path = D.shortest_path(set(), {0,1,2,3})
     assert len(path) == 3
     assert D.diameter() == 2
+
+
+def test_odd_parity_family_is_even_delta_matroid():
+    D = DeltaMatroid({1, 2}, [{1}, {2}])
+    assert D.is_even()
+    assert D.verify_delta_axiom() is None
+    assert D.verify_wenzel() is None
