@@ -144,15 +144,10 @@ class BitmaskExchangeEngine:
             )
 
         best = 0
-        distances = array("i", [-1]) * self.size
-        seen_stamp = array("I", [0]) * self.size
-        stamp = 0
 
         for source in vertices:
-            stamp += 1
+            distances = {source: 0}
             reached = 1
-            seen_stamp[source] = stamp
-            distances[source] = 0
             q = deque([source])
             eccentricity = 0
 
@@ -160,9 +155,8 @@ class BitmaskExchangeEngine:
                 u = q.popleft()
                 du = distances[u]
                 for v in self.neighbors(u):
-                    if seen_stamp[v] == stamp:
+                    if v in distances:
                         continue
-                    seen_stamp[v] = stamp
                     distances[v] = du + 1
                     reached += 1
                     eccentricity = max(eccentricity, du + 1)
