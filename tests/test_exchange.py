@@ -74,3 +74,17 @@ def test_even_flag_accepts_odd_parity_uniform_family():
     feasible[0b10] = 1
     engine = BitmaskExchangeEngine(2, feasible, even=True)
     assert set(engine.neighbors(0b01)) == {0b10}
+
+
+def test_engine_matches_explicit_delta_matroid_neighbors_on_small_graph():
+    G = MatchingGraph.from_edges(
+        range(7),
+        [(0,1),(0,2),(1,3),(2,3),(2,4),(4,5),(5,6),(3,6)],
+    )
+    D = G.delta_matroid()
+    engine = G.exchange_engine()
+
+    for F in D.feasible_sets:
+        mask = D.mask(F)
+        expected = {D.mask(N) for N in D.exchange_neighbors(F)}
+        assert set(engine.neighbors(mask)) == expected
