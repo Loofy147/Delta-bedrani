@@ -33,6 +33,8 @@ For an explicit family, `delete`, `contract`, `restrict`, `twist`, and `direct_s
 
 `is_even()` means parity-uniform: all feasible sets have the same cardinality parity. Matching delta-matroids are the normal/even subclass with even-sized feasible sets.
 
+For a parity-uniform delta-matroid, symmetric exchange alone gives an exact basis-graph metric: `d(A, B) = |A Delta B| / 2`. The implementation exposes `even_exchange_distance()` and `even_exchange_shortest_path()` for this theorem-backed case; BFS is retained as an independent oracle.
+
 ## Benchmarking
 
 ```bash
