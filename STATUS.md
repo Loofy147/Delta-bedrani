@@ -27,6 +27,11 @@ Date: 2026-09-27
 - The lazy exchange engine has targeted tests for one-/two-bit exchange generation, shortest paths, connectivity, and guarded exact diameter.
 - Observed exchange-graph results for C6, K8, Petersen, K10, and K12 are recorded in `benchmarks/OBSERVED_2026-09-27.md`.
 
+## Current implementation hardening
+
+- `DeltaMatroid` now rejects a family that fails symmetric exchange at construction; theorem-backed internal constructors are used for known-valid closure paths.
+- Exact diameter uses O(|F|) distance state per source rather than arrays of size 2^n.
+
 ## Unknown / deliberately unclaimed
 
 - A randomized Tutte zero is not an infeasibility certificate.
@@ -34,5 +39,5 @@ Date: 2026-09-27
 - No portable hardware-independent runtime is claimed.
 - Exact all-pairs diameter is guarded by a feasible-vertex limit.
 - Large explicit exchange-graph materialization is unsupported by design.
-- GitHub Actions workflow run 36331349628 completed successfully for all four Python matrix jobs.
+- GitHub Actions workflow run 36331349628 completed successfully for all four Python matrix jobs before the latest audit-hardening commits; a fresh run is required for the current head.
 - The ecosystem scan found active third-party implementation work (for example, an open 2026 Jacobian issue); novelty claims are therefore scoped to this repository's exact architecture and evidence workflow.
