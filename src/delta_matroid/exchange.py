@@ -108,8 +108,8 @@ class BitmaskExchangeEngine:
     def is_connected(self, source: int | None = None) -> bool:
         return self.component_size(source) == self.feasible_count()
 
-    def theorem_distance(self, source: int, target: int) -> int:
-        """Exact exchange-graph distance when the even-delta-matroid theorem is trusted."""
+    def even_exchange_distance(self, source: int, target: int) -> int:
+        """Exact distance when an even delta-matroid invariant is trusted."""
         if not self.even or not self.exchange_verified:
             raise ValueError(
                 "theorem distance requires an exchange-verified even delta-matroid"
@@ -118,8 +118,8 @@ class BitmaskExchangeEngine:
             raise ValueError("both endpoints must be feasible")
         return (source ^ target).bit_count() // 2
 
-    def theorem_shortest_path(self, source: int, target: int) -> tuple[int, ...]:
-        """Construct an exact shortest path using Wenzel exchange."""
+    def even_exchange_shortest_path(self, source: int, target: int) -> tuple[int, ...]:
+        """Construct an exact shortest path from symmetric exchange + parity."""
         if not self.even or not self.exchange_verified:
             raise ValueError(
                 "theorem path requires an exchange-verified even delta-matroid"
@@ -144,7 +144,7 @@ class BitmaskExchangeEngine:
                 remaining ^= y
             else:
                 raise RuntimeError(
-                    "Wenzel exchange step not found; "
+                    "symmetric-exchange step not found; "
                     "the family or verification invariant is inconsistent."
                 )
 
