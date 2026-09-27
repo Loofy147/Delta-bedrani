@@ -24,7 +24,7 @@ Date: 2026-09-27
 - K3 disjoint-union K3 remains singular in 100 finite-field Tutte samples.
 - Exact PPT identities are covered by tests when the pivot block is invertible.
 - K_n counts agree with 2^(n-1) through n=24 in the bitmask backend.
-- The lazy exchange engine has targeted tests for one-/two-bit exchange generation, shortest paths, connectivity, guarded exact diameter, theorem-vs-BFS path equality, and small-system minor/direct-sum closure.
+- The lazy exchange engine has targeted tests for one-/two-bit exchange generation, connectivity, guarded exact diameter, plus exhaustive theorem-path checks for every feasible C6 endpoint pair; BFS remains an independent path oracle. Small-system twist/minor closure and direct-sum laws are also covered.
 - Observed exchange-graph results for C6, K8, Petersen, K10, and K12 are recorded in `benchmarks/OBSERVED_2026-09-27.md`.
 
 ## Current implementation hardening
