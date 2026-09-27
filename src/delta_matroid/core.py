@@ -238,7 +238,12 @@ class DeltaMatroid:
                 q.append(G)
         raise ValueError("Exchange graph is disconnected.")
 
-    def diameter(self) -> int:
+    def diameter(self, *, max_vertices: int = 1024) -> int:
+        if len(self._feasible) > max_vertices:
+            raise ValueError(
+                f"exact diameter disabled for {len(self._feasible)} feasible vertices; "
+                f"max_vertices={max_vertices}"
+            )
         max_distance = 0
         for source in self._feasible:
             dist = {source: 0}
