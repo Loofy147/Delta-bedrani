@@ -88,3 +88,39 @@ def test_engine_matches_explicit_delta_matroid_neighbors_on_small_graph():
         mask = D.mask(F)
         expected = {D.mask(N) for N in D.exchange_neighbors(F)}
         assert set(engine.neighbors(mask)) == expected
+
+
+def test_theorem_path_matches_bfs():
+    G = MatchingGraph.from_edges(
+        range(8),
+        [(0,1),(0,2),(1,3),(2,3),(2,4),(4,5),(5,6),(3,6),(6,7),(1,7)],
+    )
+    D = G.delta_matroid()
+    engine = G.exchange_engine()
+
+    pairs = [
+        (0, (1 << 8) - 1),
+        (0b00110011, 0b11001100),
+        (0b00001111, 0b11110000),
+    ]
+
+    for source, target in pairs:
+        if source not in engine or target not in engine:
+            continue
+        theorem_path = engine.theorem_shortest_path(source, target)
+        bfs_path = engine.shortest_path(source, target)
+        expected_distance = (source ^ target).bit_count() // 2
+
+        assert len(theorem_path) - 1 == expected_distance
+        assert len(bfs_path) - 1 == expected_distance
+        assert theorem_path[0] == source
+        assert theorem_path[-1] == target
+        assert all(((a ^ b).bit_count() == 2) for a, b in zip(theorem_path, theorem_path[1:]))
+
+
+def test_unverified_engine_cannot_use_theorem_path():
+    engine = BitmaskExchangeEngine.from_feasible_iterable(
+        2, [0, 3], even=True
+    )
+    with pytest.raises(ValueError, match="exchange-verified"):
+        engine.theorem_shortest_path(0, 3)
