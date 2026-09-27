@@ -3,7 +3,7 @@
 ## Purpose
 
 Measure the lazy bitmask exchange engine without conflating graph enumeration,
-connectivity, and all-pairs diameter cost.
+connectivity, shortest-path construction, and all-pairs diameter cost.
 
 ## Adjacency
 
@@ -11,18 +11,24 @@ Two feasible masks A and B are adjacent exactly when
 
 |A Delta B| <= 2.
 
-For even delta-matroids, only the |A Delta B| = 2 case can occur.
+For parity-uniform delta-matroids, all feasible sets have the same parity, so
+distinct adjacent feasible masks differ by exactly two elements.
 
 ## Metrics
 
 For each graph record:
 
 - feasible-set count
-- connected component size from the selected source (the empty set for normal matching delta-matroids)
+- connected component size from the selected source
 - connectivity
 - feasible-mask construction time
 - component traversal time
+- theorem-aware shortest-path length and construction time
+- independent BFS shortest-path length and construction time
 - exact diameter time when below the configured guard
+
+The theorem-aware and BFS path lengths must agree. The theorem-aware path length
+should also equal |A Delta B|/2 for the selected endpoints.
 
 ## Guard
 
@@ -38,5 +44,11 @@ Run from repository root:
 
 The program emits JSON containing the Python/platform runtime and measurements.
 
-No percentage of pruning and no portable wall-clock claim is inferred from
-these measurements.
+## Evidence rules
+
+Record the exact commit/ref used for the run and preserve the emitted JSON or a
+derived observation table. Environment-specific wall-clock measurements are
+observations, not portable performance claims.
+
+No percentage of pruning and no asymptotic speedup is inferred from these
+measurements.
