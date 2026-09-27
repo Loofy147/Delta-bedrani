@@ -7,6 +7,7 @@
 5. I. Moffatt, "Delta-matroids for graph theorists", Surveys in Combinatorics 2019, London Mathematical Society Lecture Note Series, Cambridge University Press.
 6. Tomohiro Koana and Magnus Wahlström, "Faster algorithms on linear delta-matroids", arXiv:2402.11596 (2024).
 7. Eduard Eiben, Tomohiro Koana, and Magnus Wahlström, "FPT algorithms over linear delta-matroids with applications", arXiv:2502.13654 (2025).
-8. Donggyu Kim, "Note on Hamiltonicity of Basis Graphs of Even Delta-Matroids", Journal of Graph Theory (2025), DOI: 10.1002/jgt.23237.
+8. Kieran Calvert, Aram Dermenjian, Alex Fink, Ben Smith, "Characterisations of strong Δ-matroids", arXiv:2607.02419 (2026).
+9. Donggyu Kim, "Note on Hamiltonicity of Basis Graphs of Even Delta-Matroids", Journal of Graph Theory (2025), DOI: 10.1002/jgt.23237.
 
 Attribution note: A. Duchamp's "Strong Symmetric Exchange Axiom for Delta-Matroids" is cited in later literature as an unpublished/preprint work; it is not treated here as a coequal published source for Wenzel's 1993 theorem.
