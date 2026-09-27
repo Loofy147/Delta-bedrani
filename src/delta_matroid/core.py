@@ -20,7 +20,7 @@ class ExchangeViolation:
 class DeltaMatroid:
     """Finite set-system representation of a delta-matroid."""
 
-    def __init__(self, groundset: Iterable[Element], feasible_sets: Iterable[SetLike]):
+    def __init__(self, groundset: Iterable[Element], feasible_sets: Iterable[SetLike], *, _validated: bool = False):
         E = frozenset(groundset)
         F = frozenset(frozenset(S) for S in feasible_sets)
         if not F:
@@ -33,9 +33,20 @@ class DeltaMatroid:
         self._index = {e: i for i, e in enumerate(sorted(E, key=repr))}
         self._ordered_groundset = tuple(sorted(E, key=repr))
 
+        if not _validated:
+            violation = self.verify_delta_axiom()
+            if violation is not None:
+                raise ValueError(
+                    f"feasible family violates symmetric exchange: {violation}"
+                )
+
     @classmethod
     def from_feasible_sets(cls, groundset: Iterable[Element], feasible_sets: Iterable[SetLike]):
-        return cls(groundset, feasible_sets)
+        return cls(groundset, feasible_sets, _validated=False)
+
+    @classmethod
+    def _from_validated(cls, groundset: Iterable[Element], feasible_sets: Iterable[SetLike]):
+        return cls(groundset, feasible_sets, _validated=True)
 
     @property
     def groundset(self) -> frozenset[Element]:
@@ -103,7 +114,7 @@ class DeltaMatroid:
         A = frozenset(subset)
         if not A <= self._groundset:
             raise ValueError("Twist set must be contained in the groundset.")
-        return DeltaMatroid(self._groundset, (F ^ A for F in self._feasible))
+        return DeltaMatroid._from_validated(self._groundset, (F ^ A for F in self._feasible))
 
     def _delete_feasible(self, e: Element) -> frozenset[frozenset[Element]]:
         if e in self.coloops():
@@ -125,7 +136,7 @@ class DeltaMatroid:
             raise ValueError("Deletion set must be contained in the groundset.")
         D = self
         for e in elements:
-            D = DeltaMatroid(D._groundset - {e}, D._delete_feasible(e))
+            D = DeltaMatroid._from_validated(D._groundset - {e}, D._delete_feasible(e))
         return D
 
     def _contract_one(self, e: Element) -> "DeltaMatroid":
@@ -134,7 +145,7 @@ class DeltaMatroid:
             newF = frozenset(self._feasible)
         else:
             newF = frozenset(F - {e} for F in self._feasible if e in F)
-        return DeltaMatroid(self._groundset - {e}, newF)
+        return DeltaMatroid._from_validated(self._groundset - {e}, newF)
 
     def contract(self, element: Element | Iterable[Element]) -> "DeltaMatroid":
         elements = self._normalize_elements(element, self._groundset)
@@ -154,7 +165,7 @@ class DeltaMatroid:
     def direct_sum(self, other: "DeltaMatroid") -> "DeltaMatroid":
         if self._groundset & other._groundset:
             raise ValueError("Direct sum requires disjoint groundsets.")
-        return DeltaMatroid(
+        return DeltaMatroid._from_validated(
             self._groundset | other._groundset,
             (A | B for A in self._feasible for B in other._feasible),
         )
