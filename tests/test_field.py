@@ -69,3 +69,12 @@ def test_principal_rejects_invalid_indices_and_duplicates():
         pass
     else:
         raise AssertionError("duplicate vertex must be rejected")
+
+
+def test_global_tutte_rejects_non_integer_matrix_entries():
+    try:
+        GlobalTutteMatrix((0, 1), ((0, 1.5), (-1.5, 0)), P)
+    except TypeError as exc:
+        assert "integers" in str(exc)
+    else:
+        raise AssertionError("non-integer matrix entries must be rejected")
