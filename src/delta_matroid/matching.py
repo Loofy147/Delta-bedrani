@@ -84,7 +84,7 @@ class MatchingGraph:
     ) -> BitmaskExchangeEngine:
         """Create a lazy exchange engine without materializing graph edges."""
         masks = self.feasible_masks() if feasible_masks is None else feasible_masks
-        return BitmaskExchangeEngine(len(self.vertices), masks, even=True)
+        return BitmaskExchangeEngine(len(self.vertices), masks, even=True, exchange_verified=True)
 
     def delta_matroid(self) -> "MatchingDeltaMatroid":
         return MatchingDeltaMatroid(self)
