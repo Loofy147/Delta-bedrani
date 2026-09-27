@@ -1,8 +1,33 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from functools import lru_cache
 import random
 from typing import Sequence
+
+
+@lru_cache(maxsize=32)
+def _is_prime(p: int) -> bool:
+    """Deterministic trial-division primality test for the configured modulus."""
+    if not isinstance(p, int) or p <= 1:
+        return False
+    if p <= 3:
+        return True
+    if p % 2 == 0:
+        return False
+    d = 3
+    while d * d <= p:
+        if p % d == 0:
+            return False
+        d += 2
+    return True
+
+
+def _require_prime(p: int) -> None:
+    if not _is_prime(p):
+        raise ValueError("p must be prime")
+    if p == 2:
+        raise ValueError("p must be an odd prime")
 
 
 class SingularMatrixError(ValueError):
@@ -10,7 +35,8 @@ class SingularMatrixError(ValueError):
 
 
 def det_mod_p(matrix: Sequence[Sequence[int]], p: int) -> int:
-    """Exact determinant over F_p by modular Gaussian elimination."""
+    """Exact determinant over the odd prime field F_p."""
+    _require_prime(p)
     n = len(matrix)
     if n == 0:
         return 1
@@ -19,13 +45,13 @@ def det_mod_p(matrix: Sequence[Sequence[int]], p: int) -> int:
     A = [[x % p for x in row] for row in matrix]
     det = 1
     for col in range(n):
-        pivot = next((r for r in range(col, n) if A[r][col] % p), None)
+        pivot = next((r for r in range(col, n) if A[r][col]), None)
         if pivot is None:
             return 0
         if pivot != col:
             A[col], A[pivot] = A[pivot], A[col]
             det = (-det) % p
-        pivot_value = A[col][col] % p
+        pivot_value = A[col][col]
         det = (det * pivot_value) % p
         inv = pow(pivot_value, p - 2, p)
         for r in range(col + 1, n):
@@ -38,7 +64,8 @@ def det_mod_p(matrix: Sequence[Sequence[int]], p: int) -> int:
 
 
 def inverse_mod_p(matrix: Sequence[Sequence[int]], p: int) -> list[list[int]]:
-    """Exact matrix inverse over F_p."""
+    """Exact matrix inverse over the odd prime field F_p."""
+    _require_prime(p)
     n = len(matrix)
     if n == 0:
         return []
@@ -65,6 +92,7 @@ def inverse_mod_p(matrix: Sequence[Sequence[int]], p: int) -> list[list[int]]:
 
 
 def matmul_mod(A: Sequence[Sequence[int]], B: Sequence[Sequence[int]], p: int) -> list[list[int]]:
+    _require_prime(p)
     if not A or not B:
         return []
     n, k, m = len(A), len(B), len(B[0])
@@ -89,8 +117,7 @@ class GlobalTutteMatrix:
         n = len(adjacency)
         if any(len(row) != n for row in adjacency):
             raise ValueError("Adjacency matrix must be square.")
-        if prime <= 2:
-            raise ValueError("prime must be > 2.")
+        _require_prime(prime)
         rng = random.Random(seed)
         T = [[0] * n for _ in range(n)]
         for i in range(n):
@@ -106,6 +133,11 @@ class GlobalTutteMatrix:
         return cls(tuple(range(n)), tuple(tuple(row) for row in T), prime)
 
     def principal(self, subset: Sequence[int]) -> list[list[int]]:
+        subset = tuple(subset)
+        if any(i < 0 or i >= len(self.vertices) for i in subset):
+            raise ValueError("subset contains a vertex outside the matrix")
+        if len(set(subset)) != len(subset):
+            raise ValueError("subset must not contain duplicate vertices")
         return [[self.matrix[i][j] for j in subset] for i in subset]
 
     def certify_feasible(self, subset: Sequence[int]) -> bool:
