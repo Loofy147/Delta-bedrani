@@ -1,3 +1,5 @@
+import pytest
+
 from delta_matroid import DeltaMatroid
 
 
@@ -46,3 +48,8 @@ def test_odd_parity_family_is_even_delta_matroid():
     assert D.is_even()
     assert D.verify_delta_axiom() is None
     assert D.verify_wenzel() is None
+
+
+def test_invalid_family_is_rejected_at_construction():
+    with pytest.raises(ValueError, match="symmetric exchange"):
+        DeltaMatroid({0, 1, 2}, [set(), {0, 1}, {2}])
