@@ -61,7 +61,9 @@ class DeltaMatroid:
         return hash((self._groundset, self._feasible))
 
     def is_even(self) -> bool:
-        return all(len(F) % 2 == 0 for F in self._feasible)
+        """Return True when all feasible sets have the same parity."""
+        parities = {len(F) % 2 for F in self._feasible}
+        return len(parities) == 1
 
     def is_normal(self) -> bool:
         return frozenset() in self._feasible
@@ -164,8 +166,10 @@ class DeltaMatroid:
         return sum(1 << self._index[e] for e in S)
 
     def set_from_mask(self, mask: int) -> frozenset[Element]:
+        if not 0 <= mask < (1 << len(self._ordered_groundset)):
+            raise ValueError("mask outside groundset")
         return frozenset(
-            self._ordered_groundset[i]
+              self._ordered_groundset[i]
             for i in range(len(self._ordered_groundset))
             if mask >> i & 1
         )
