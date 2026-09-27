@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from array import array
 from collections import deque
 from typing import Iterable, Sequence
 
@@ -19,6 +18,7 @@ class BitmaskExchangeEngine:
         feasible_masks: Sequence[int] | bytes | bytearray,
         *,
         even: bool = True,
+        exchange_verified: bool = False,
     ):
         if n < 0:
             raise ValueError("n must be nonnegative")
@@ -35,6 +35,7 @@ class BitmaskExchangeEngine:
         self.size = expected
         self.feasible = feasible_masks
         self.even = even
+        self.exchange_verified = exchange_verified
         self._bits = tuple(1 << i for i in range(n))
         self._feasible_vertices: int | None = None
 
@@ -106,6 +107,48 @@ class BitmaskExchangeEngine:
 
     def is_connected(self, source: int | None = None) -> bool:
         return self.component_size(source) == self.feasible_count()
+
+    def theorem_distance(self, source: int, target: int) -> int:
+        """Exact exchange-graph distance when the even-delta-matroid theorem is trusted."""
+        if not self.even or not self.exchange_verified:
+            raise ValueError(
+                "theorem distance requires an exchange-verified even delta-matroid"
+            )
+        if source not in self or target not in self:
+            raise ValueError("both endpoints must be feasible")
+        return (source ^ target).bit_count() // 2
+
+    def theorem_shortest_path(self, source: int, target: int) -> tuple[int, ...]:
+        """Construct an exact shortest path using Wenzel exchange."""
+        if not self.even or not self.exchange_verified:
+            raise ValueError(
+                "theorem path requires an exchange-verified even delta-matroid"
+            )
+        if source not in self or target not in self:
+            raise ValueError("both endpoints must be feasible")
+        current = source
+        path = [current]
+
+        while current != target:
+            diff = current ^ target
+            x = diff & -diff
+            remaining = diff ^ x
+
+            while remaining:
+                y = remaining & -remaining
+                candidate = current ^ x ^ y
+                if candidate in self:
+                    current = candidate
+                    path.append(current)
+                    break
+                remaining ^= y
+            else:
+                raise RuntimeError(
+                    "Wenzel exchange step not found; "
+                    "the family or verification invariant is inconsistent."
+                )
+
+        return tuple(path)
 
     def shortest_path(self, source: int, target: int) -> tuple[int, ...]:
         if source not in self or target not in self:
