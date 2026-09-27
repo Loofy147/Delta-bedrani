@@ -38,6 +38,8 @@ def det_mod_p(matrix: Sequence[Sequence[int]], p: int) -> int:
     """Exact determinant over the odd prime field F_p."""
     _require_prime(p)
     n = len(matrix)
+    if any(not isinstance(x, int) for row in matrix for x in row):
+        raise TypeError("matrix entries must be integers")
     if n == 0:
         return 1
     if any(len(row) != n for row in matrix):
@@ -67,6 +69,8 @@ def inverse_mod_p(matrix: Sequence[Sequence[int]], p: int) -> list[list[int]]:
     """Exact matrix inverse over the odd prime field F_p."""
     _require_prime(p)
     n = len(matrix)
+    if any(not isinstance(x, int) for row in matrix for x in row):
+        raise TypeError("matrix entries must be integers")
     if n == 0:
         return []
     if any(len(row) != n for row in matrix):
@@ -93,6 +97,8 @@ def inverse_mod_p(matrix: Sequence[Sequence[int]], p: int) -> list[list[int]]:
 
 def matmul_mod(A: Sequence[Sequence[int]], B: Sequence[Sequence[int]], p: int) -> list[list[int]]:
     _require_prime(p)
+    if any(not isinstance(x, int) for row in A for x in row) or any(not isinstance(x, int) for row in B for x in row):
+        raise TypeError("matrix entries must be integers")
     if not A or not B:
         return []
     n, k, m = len(A), len(B), len(B[0])
@@ -106,6 +112,20 @@ class GlobalTutteMatrix:
     vertices: tuple[int, ...]
     matrix: tuple[tuple[int, ...], ...]
     prime: int
+
+    def __post_init__(self):
+        _require_prime(self.prime)
+        n = len(self.vertices)
+        if self.vertices != tuple(range(n)):
+            raise ValueError("GlobalTutteMatrix vertices must be canonical indices 0..n-1")
+        if len(self.matrix) != n or any(len(row) != n for row in self.matrix):
+            raise ValueError("GlobalTutteMatrix.matrix must be square")
+        for i in range(n):
+            if self.matrix[i][i] % self.prime != 0:
+                raise ValueError("Tutte matrix diagonal must be zero")
+            for j in range(i + 1, n):
+                if (self.matrix[i][j] + self.matrix[j][i]) % self.prime != 0:
+                    raise ValueError("Tutte matrix must be skew-symmetric")
 
     @classmethod
     def sample(
