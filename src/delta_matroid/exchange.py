@@ -27,6 +27,10 @@ class BitmaskExchangeEngine:
             raise ValueError(f"feasible mask table must have length {expected}")
         if not any(feasible_masks):
             raise ValueError("the feasible mask table must contain at least one vertex")
+        if even:
+            parities = {i.bit_count() & 1 for i, ok in enumerate(feasible_masks) if ok}
+            if len(parities) != 1:
+                raise ValueError("even=True requires a parity-uniform feasible family")
         self.n = n
         self.size = expected
         self.feasible = feasible_masks
