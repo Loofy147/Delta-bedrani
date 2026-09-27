@@ -53,3 +53,15 @@ def test_odd_parity_family_is_even_delta_matroid():
 def test_invalid_family_is_rejected_at_construction():
     with pytest.raises(ValueError, match="symmetric exchange"):
         DeltaMatroid({0, 1, 2}, [set(), {0, 1}, {2}])
+
+def test_explicit_diameter_guard():
+    D = DeltaMatroid({0, 1, 2, 3}, [
+        set(), {0,1}, {0,2}, {0,3},
+        {1,2}, {1,3}, {2,3}, {0,1,2,3}
+    ])
+    try:
+        D.diameter(max_vertices=4)
+    except ValueError as exc:
+        assert "exact diameter disabled" in str(exc)
+    else:
+        raise AssertionError("explicit diameter guard must reject oversized families")
