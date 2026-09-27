@@ -90,7 +90,7 @@ def test_engine_matches_explicit_delta_matroid_neighbors_on_small_graph():
         assert set(engine.neighbors(mask)) == expected
 
 
-def test_theorem_path_matches_bfs():
+def test_even_exchange_path_matches_bfs():
     G = MatchingGraph.from_edges(
         range(8),
         [(0,1),(0,2),(1,3),(2,3),(2,4),(4,5),(5,6),(3,6),(6,7),(1,7)],
@@ -107,10 +107,12 @@ def test_theorem_path_matches_bfs():
     for source, target in pairs:
         if source not in engine or target not in engine:
             continue
-        theorem_path = engine.theorem_shortest_path(source, target)
+        theorem_path = engine.even_exchange_shortest_path(source, target)
         bfs_path = engine.shortest_path(source, target)
         expected_distance = (source ^ target).bit_count() // 2
 
+        assert engine.even_exchange_distance(source, target) == expected_distance
+        assert D.even_exchange_distance(D.set_from_mask(source), D.set_from_mask(target)) == expected_distance
         assert len(theorem_path) - 1 == expected_distance
         assert len(bfs_path) - 1 == expected_distance
         assert theorem_path[0] == source
@@ -118,7 +120,7 @@ def test_theorem_path_matches_bfs():
         assert all(((a ^ b).bit_count() == 2) for a, b in zip(theorem_path, theorem_path[1:]))
 
 
-def test_unverified_engine_cannot_use_theorem_path():
+def test_unverified_engine_cannot_use_even_theorem_path():
     engine = BitmaskExchangeEngine.from_feasible_iterable(
         2, [0, 3], even=True
     )
