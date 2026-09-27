@@ -27,6 +27,8 @@ The matching layer uses the deterministic recurrence:
 
 `S feasible iff a fixed v in S has a neighbor u in S with S-{u,v} feasible.`
 
+`DeltaMatroid(...)` validates symmetric exchange by default; theorem-backed constructors use an internal validated path only where the mathematical construction already establishes the invariant.
+
 For an explicit family, `delete`, `contract`, `restrict`, `twist`, and `direct_sum` are exact set-system operations.
 
 `is_even()` means parity-uniform: all feasible sets have the same cardinality parity. Matching delta-matroids are the normal/even subclass with even-sized feasible sets.
