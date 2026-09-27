@@ -93,7 +93,7 @@ class MatchingGraph:
 class MatchingDeltaMatroid(DeltaMatroid):
     def __init__(self, graph: MatchingGraph):
         self.graph = graph
-        super().__init__(graph.vertices, graph.feasible_family())
+        super().__init__(graph.vertices, graph.feasible_family(), _validated=True)
 
     def exchange_engine(self) -> BitmaskExchangeEngine:
         return self.graph.exchange_engine()
