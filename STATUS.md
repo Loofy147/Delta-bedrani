@@ -24,7 +24,7 @@ Date: 2026-09-27
 - K3 disjoint-union K3 remains singular in 100 finite-field Tutte samples.
 - Exact PPT identities are covered by tests when the pivot block is invertible.
 - K_n counts agree with 2^(n-1) through n=24 in the bitmask backend.
-- The lazy exchange engine has targeted tests for one-/two-bit exchange generation, shortest paths, connectivity, and guarded exact diameter.
+- The lazy exchange engine has targeted tests for one-/two-bit exchange generation, shortest paths, connectivity, guarded exact diameter, theorem-vs-BFS path equality, and small-system minor/direct-sum closure.
 - Observed exchange-graph results for C6, K8, Petersen, K10, and K12 are recorded in `benchmarks/OBSERVED_2026-09-27.md`.
 
 ## Current implementation hardening
@@ -42,5 +42,5 @@ Date: 2026-09-27
 - No portable hardware-independent runtime is claimed.
 - Exact all-pairs diameter is guarded by a feasible-vertex limit.
 - Large explicit exchange-graph materialization is unsupported by design.
-- GitHub Actions workflow run 36331349628 completed successfully for all four Python matrix jobs before the latest audit-hardening commits; a fresh run is required for the current head.
+- GitHub Actions workflow run 36332131299 completed successfully for all four Python matrix jobs at head `7db177fafc2da05e523e524973899d5864013ddb`. Cleanup/test commits after that head require their own current-head CI evidence.
 - The ecosystem scan found active third-party implementation work (for example, an open 2026 Jacobian issue); novelty claims are therefore scoped to this repository's exact architecture and evidence workflow.
