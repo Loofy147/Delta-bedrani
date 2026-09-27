@@ -126,3 +126,31 @@ def test_unverified_engine_cannot_use_even_theorem_path():
     )
     with pytest.raises(ValueError, match="exchange-verified"):
         engine.even_exchange_shortest_path(0, 3)
+
+def test_even_exchange_path_is_exact_for_all_c6_pairs():
+    G = MatchingGraph.from_edges(
+        range(6),
+        [(i, (i + 1) % 6) for i in range(6)],
+    )
+    D = G.delta_matroid()
+    engine = G.exchange_engine()
+    vertices = tuple(engine.iter_vertices())
+
+    for source in vertices:
+        for target in vertices:
+            expected = (source ^ target).bit_count() // 2
+            path = engine.even_exchange_shortest_path(source, target)
+
+            assert engine.even_exchange_distance(source, target) == expected
+            assert len(path) - 1 == expected
+            assert path[0] == source
+            assert path[-1] == target
+            assert all(
+                ((a ^ b).bit_count() == 2)
+                for a, b in zip(path, path[1:])
+            )
+            assert all(mask in engine for mask in path)
+            assert D.even_exchange_distance(
+                D.set_from_mask(source),
+                D.set_from_mask(target),
+            ) == expected
