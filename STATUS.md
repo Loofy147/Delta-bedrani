@@ -29,6 +29,9 @@ Date: 2026-09-27
 
 ## Current implementation hardening
 
+- Exact exchange distance for parity-uniform delta-matroids is derived from symmetric exchange plus parity: `d(A,B) = |A Delta B|/2`.
+- A theorem-aware shortest-path backend constructs such paths without BFS; BFS remains the independent oracle.
+
 - `DeltaMatroid` now rejects a family that fails symmetric exchange at construction; theorem-backed internal constructors are used for known-valid closure paths.
 - Exact diameter uses O(|F|) distance state per source rather than arrays of size 2^n.
 
