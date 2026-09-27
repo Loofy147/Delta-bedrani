@@ -125,4 +125,4 @@ def test_unverified_engine_cannot_use_even_theorem_path():
         2, [0, 3], even=True
     )
     with pytest.raises(ValueError, match="exchange-verified"):
-        engine.theorem_shortest_path(0, 3)
+        engine.even_exchange_shortest_path(0, 3)
