@@ -7,7 +7,7 @@ Date: 2026-09-27
 - `main` contains the exact research kernel and CI workflow.
 - `feature/exchange-engine-v0` contains the lazy bitmask exchange engine and benchmark protocol.
 - Pull request: #1.
-- Feature branch is intentionally kept separate from `main) until review and CI evidence are available.
+- Feature branch is intentionally kept separate from `main` until review and CI evidence are available.
 - The previous branch-history construction briefly dropped CI and benchmark documentation; this was detected by compare-diff audit and is being repaired explicitly.
 
 ## Established by theory
@@ -34,5 +34,5 @@ Date: 2026-09-27
 - No portable hardware-independent runtime is claimed.
 - Exact all-pairs diameter is guarded by a feasible-vertex limit.
 - Large explicit exchange-graph materialization is unsupported by design.
-- GitHub Actions status is not treated as PASS until a readable successful workflow run is observed.
-- No absolute claim is made that no third-party delta-matroid implementation exists.
+- GitHub Actions workflow run 36331349628 completed successfully for all four Python matrix jobs.
+- The ecosystem scan found active third-party implementation work (for example, an open 2026 Jacobian issue); novelty claims are therefore scoped to this repository's exact architecture and evidence workflow.
