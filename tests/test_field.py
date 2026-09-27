@@ -35,7 +35,7 @@ def test_ppt_pair_identity():
 
 
 def test_det_mod_p_prime_contract():
-    assert det_mod_p([[1, 2], [3, 4]], 5) == 4
+    assert det_mod_p([[1, 2], [3, 4]], 5) == 3
 
     try:
         det_mod_p([[1]], 9)
