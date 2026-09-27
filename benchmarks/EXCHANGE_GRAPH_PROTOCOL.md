@@ -18,7 +18,7 @@ For even delta-matroids, only the |A Delta B| = 2 case can occur.
 For each graph record:
 
 - feasible-set count
-- connected component size from the empty set
+- connected component size from the selected source (the empty set for normal matching delta-matroids)
 - connectivity
 - feasible-mask construction time
 - component traversal time
