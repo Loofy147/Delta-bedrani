@@ -215,12 +215,13 @@ class DeltaMatroid:
                     q.append(G)
         return len(seen) == len(self._feasible)
 
-    def theorem_distance(self, source: SetLike, target: SetLike) -> int:
-        """Exact exchange-graph distance for any even delta-matroid.
+    def even_exchange_distance(self, source: SetLike, target: SetLike) -> int:
+        """Exact basis-graph distance for a parity-uniform delta-matroid.
 
-        Wenzel strong exchange implies a path that reduces symmetric
-        difference by two at every step. Every basis-graph edge changes
-        exactly two elements, so the lower and upper bounds coincide.
+        Symmetric exchange plus parity uniformity gives a feasible y != x
+        for each x in the symmetric difference, producing a path that
+        decreases |A Delta B| by two at every step. Every basis-graph edge
+        changes exactly two elements, so the lower and upper bounds coincide.
         """
         if not self.is_even():
             raise ValueError("theorem distance requires an even delta-matroid")
@@ -229,12 +230,12 @@ class DeltaMatroid:
             raise ValueError("Both endpoints must be feasible.")
         return len(s ^ t) // 2
 
-    def theorem_shortest_path(
+    def even_exchange_shortest_path(
         self,
         source: SetLike,
         target: SetLike,
     ) -> tuple[frozenset[Element], ...]:
-        """Construct an exact shortest path using Wenzel exchange."""
+        """Construct an exact shortest path from symmetric exchange + parity."""
         if not self.is_even():
             raise ValueError("theorem path requires an even delta-matroid")
         current = frozenset(source)
@@ -245,9 +246,8 @@ class DeltaMatroid:
         while current != target:
             diff = current ^ target
             x = next(iter(diff))
-            # Wenzel guarantees that at least one y in diff\{x}
-            # makes current Delta {x,y} feasible (and, in fact, also
-            # makes the target endpoint feasible after the same exchange).
+            # Symmetric exchange guarantees that at least one y in diff\{x}
+            # makes current Delta {x,y} feasible; parity uniformity rules out y=x.
             for y in diff:
                 if y == x:
                     continue
@@ -258,7 +258,7 @@ class DeltaMatroid:
                     break
             else:
                 raise RuntimeError(
-                    "Wenzel exchange step not found; "
+                    "symmetric-exchange step not found; "
                     "the family or verifier invariant is inconsistent."
                 )
         return tuple(path)
