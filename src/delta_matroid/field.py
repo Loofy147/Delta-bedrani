@@ -120,6 +120,8 @@ class GlobalTutteMatrix:
             raise ValueError("GlobalTutteMatrix vertices must be canonical indices 0..n-1")
         if len(self.matrix) != n or any(len(row) != n for row in self.matrix):
             raise ValueError("GlobalTutteMatrix.matrix must be square")
+        if any(not isinstance(x, int) for row in self.matrix for x in row):
+            raise TypeError("GlobalTutteMatrix entries must be integers")
         for i in range(n):
             if self.matrix[i][i] % self.prime != 0:
                 raise ValueError("Tutte matrix diagonal must be zero")
