@@ -49,6 +49,17 @@ def run_case(name, n, edges, diameter_limit):
     component = engine.component_size()
     connectivity_s = perf_counter() - t1
 
+    feasible_vertices = tuple(engine.iter_vertices())
+    endpoints = (feasible_vertices[0], feasible_vertices[-1])
+
+    t2 = perf_counter()
+    theorem_path = engine.even_exchange_shortest_path(*endpoints)
+    theorem_path_s = perf_counter() - t2
+
+    t3 = perf_counter()
+    bfs_path = engine.shortest_path(*endpoints)
+    bfs_path_s = perf_counter() - t3
+
     row = {
         "graph": name,
         "n": n,
@@ -57,6 +68,10 @@ def run_case(name, n, edges, diameter_limit):
         "connected": component == count,
         "feasible_table_build_s": build_s,
         "connectivity_s": connectivity_s,
+        "theorem_path_length": len(theorem_path) - 1,
+        "bfs_path_length": len(bfs_path) - 1,
+        "theorem_path_s": theorem_path_s,
+        "bfs_path_s": bfs_path_s,
         "diameter": None,
         "diameter_s": None,
         "diameter_status": "SKIPPED",
