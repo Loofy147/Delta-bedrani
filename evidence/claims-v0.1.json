@@ -4,7 +4,8 @@
   "project": {
     "repository": "Loofy147/Delta-bedrani",
     "branch": "feature/exchange-engine-v0",
-    "head": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
+    "head": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91",
+    "verified_head": "2fac409094b24fb0c328dd79297d60824f60fccf"
   },
   "external_method_reference": {
     "repository": "Loofy147/Machine",
@@ -31,7 +32,8 @@
       "verification_path": "tests/test_dmlib_oracle.py",
       "verification_run": "github-actions:37832297010",
       "disposition": "CONFIRMED",
-      "limits": "Finite n=5 only; does not establish asymptotic complexity or universal implementation equivalence."
+      "limits": "Finite n=5 only; does not establish asymptotic complexity or universal implementation equivalence.",
+      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
     },
     {
       "claim_id": "DM-EXCHANGE-002",
@@ -43,7 +45,8 @@
       "verification_path": "tests/test_dmlib_oracle.py",
       "verification_run": "github-actions:37832297010",
       "disposition": "CONFIRMED",
-      "limits": "Finite n=3 only."
+      "limits": "Finite n=3 only.",
+      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
     },
     {
       "claim_id": "DM-THEORY-001",
@@ -55,7 +58,8 @@
       "verification_path": "tests/test_dmlib_oracle.py",
       "verification_run": "github-actions:37832297010",
       "disposition": "CONFIRMED",
-      "limits": "Empirical finite-domain confirmation of theorem characterisations, not an independent proof of the theorem."
+      "limits": "Empirical finite-domain confirmation of theorem characterisations, not an independent proof of the theorem.",
+      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
     },
     {
       "claim_id": "DM-THEORY-002",
@@ -67,7 +71,8 @@
       "verification_path": "tests/test_dmlib_oracle.py",
       "verification_run": "github-actions:37832297010",
       "disposition": "CONFIRMED",
-      "limits": "Finite-domain experimental confirmation only."
+      "limits": "Finite-domain experimental confirmation only.",
+      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
     },
     {
       "claim_id": "DM-EXCHANGE-003",
@@ -79,7 +84,8 @@
       "verification_path": "tests/test_dmlib_oracle.py",
       "verification_run": "github-actions:37832297010",
       "disposition": "CONFIRMED",
-      "limits": "Targeted family, not exhaustive over all n=7 families."
+      "limits": "Targeted family, not exhaustive over all n=7 families.",
+      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
     },
     {
       "claim_id": "DM-ALGEBRA-001",
@@ -91,7 +97,8 @@
       "verification_path": "tests/test_dmlib_oracle.py",
       "verification_run": "github-actions:37832297010",
       "disposition": "CONFIRMED",
-      "limits": "Targeted matrices and modulus only."
+      "limits": "Targeted matrices and modulus only.",
+      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
     },
     {
       "claim_id": "DM-REGRESSION-001",
@@ -103,7 +110,8 @@
       "verification_path": "tests/test_dmlib_oracle.py",
       "verification_run": "github-actions:37832187993",
       "disposition": "REGRESSION",
-      "limits": "Protects a known counterexample; does not characterize all unsound verifier variants."
+      "limits": "Protects a known counterexample; does not characterize all unsound verifier variants.",
+      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
     },
     {
       "claim_id": "DM-METHOD-001",
@@ -114,7 +122,8 @@
       "source_path": "docs/RESEARCH-OPERATING-CONTRACT-v0.1.md",
       "external_reference": "Loofy147/Machine: docs/BRANCH-EVIDENCE-AND-RESEARCH-HANDLING.md; docs/EVIDENCE-SPECIFICATION-DISPOSITION-CONTRACT-v0.1.md; docs/RESEARCH-STATE-CANONICALIZATION-v0.1.md",
       "disposition": "CONFIRMED",
-      "limits": "Methodological control; not a mathematical result."
+      "limits": "Methodological control; not a mathematical result.",
+      "verified_commit": "2fac409094b24fb0c328dd79297d60824f60fccf"
     },
     {
       "claim_id": "DM-REP-001",
@@ -126,7 +135,8 @@
       "verification_path": "tests/test_dmlib_oracle.py",
       "verification_run": "github-actions:37835503070",
       "disposition": "CONFIRMED",
-      "limits": "Finite n=4 and the implemented principal-minor/twist model only."
+      "limits": "Finite n=4 and the implemented principal-minor/twist model only.",
+      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
     },
     {
       "claim_id": "DM-REP-002",
@@ -138,7 +148,8 @@
       "verification_path": "tests/test_dmlib_oracle.py",
       "verification_run": "github-actions:37835503070",
       "disposition": "CONFIRMED",
-      "limits": "Finite n=4 and the implemented GF(3) sign-normalized model; larger n and cap-limited cases remain outside this exhaustive evidence."
+      "limits": "Finite n=4 and the implemented GF(3) sign-normalized model; larger n and cap-limited cases remain outside this exhaustive evidence.",
+      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
     },
     {
       "claim_id": "DM-ORACLE-001",
@@ -150,7 +161,8 @@
       "verification_path": "tests/test_dmlib_oracle.py",
       "verification_run": "github-actions:37835503070",
       "disposition": "REGRESSION",
-      "limits": "Protects the discovered early-return failure mode; does not prove all cap-edge cases."
+      "limits": "Protects the discovered early-return failure mode; does not prove all cap-edge cases.",
+      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
     }
   ]
 }
