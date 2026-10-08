@@ -30,7 +30,7 @@ For Delta-bedrani, the current active research implementation is:
 ```text
 repo   = Loofy147/Delta-bedrani
 branch = feature/exchange-engine-v0
-head   = c9301959469ddcb70afde3011764737c468c028e
+verified_head = eb40a9114ff3fc61d7154320935ad2fd9b6eabfb
 ```
 
 This does not imply that the feature branch is the canonical `main` state.
@@ -147,9 +147,7 @@ source
   -> regression protection
 ```
 
-The repository currently has the evaluator and regression tests, but does not yet have an automated machine-readable evidence-integrity gate for the claim registry itself.
-
-That is explicit specification debt.
+The repository now has an automated machine-readable evidence-integrity gate for the claim registry. It validates schema/provenance, verifies referenced commits are reachable, checks evidence paths exist, and detects evidence-path drift after a claim's verified commit.
 
 ## 9. Machine-derived boundary
 
