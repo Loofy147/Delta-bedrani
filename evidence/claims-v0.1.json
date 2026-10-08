@@ -4,7 +4,7 @@
   "project": {
     "repository": "Loofy147/Delta-bedrani",
     "branch": "feature/exchange-engine-v0",
-    "head": "3adf3a7ac79dcd44988dd1c3349cd471325f6477"
+    "head": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
   },
   "external_method_reference": {
     "repository": "Loofy147/Machine",
@@ -115,6 +115,42 @@
       "external_reference": "Loofy147/Machine: docs/BRANCH-EVIDENCE-AND-RESEARCH-HANDLING.md; docs/EVIDENCE-SPECIFICATION-DISPOSITION-CONTRACT-v0.1.md; docs/RESEARCH-STATE-CANONICALIZATION-v0.1.md",
       "disposition": "CONFIRMED",
       "limits": "Methodological control; not a mathematical result."
+    },
+    {
+      "claim_id": "DM-REP-001",
+      "claim": "binary_representable agrees with exhaustive enumeration of symmetric GF(2) matrices and all their twists for every parity-uniform family on n=4.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "All parity-uniform families on n=4; all 2^(4*5/2) symmetric GF(2) matrices and all twists",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37835503070",
+      "disposition": "CONFIRMED",
+      "limits": "Finite n=4 and the implemented principal-minor/twist model only."
+    },
+    {
+      "claim_id": "DM-REP-002",
+      "claim": "ternary_representable agrees with exhaustive enumeration of skew-symmetric GF(3) matrices and all their twists for every parity-uniform family on n=4.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "All parity-uniform families on n=4; all 3^6 skew upper-triangular GF(3) assignments and all twists",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37835503070",
+      "disposition": "CONFIRMED",
+      "limits": "Finite n=4 and the implemented GF(3) sign-normalized model; larger n and cap-limited cases remain outside this exhaustive evidence."
+    },
+    {
+      "claim_id": "DM-ORACLE-001",
+      "claim": "ternary_representable preserves later decidable twists after a cap-limited candidate is skipped, returning UNKNOWN only when no later candidate establishes representability.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "REGRESSION",
+      "scope": "Controlled n=5 regression with cap=1",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37835503070",
+      "disposition": "REGRESSION",
+      "limits": "Protects the discovered early-return failure mode; does not prove all cap-edge cases."
     }
   ]
 }
