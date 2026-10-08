@@ -5,7 +5,7 @@
     "repository": "Loofy147/Delta-bedrani",
     "branch": "feature/exchange-engine-v0",
     "head": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91",
-    "verified_head": "07b833088571a0525d8db618ac75e22298163d19"
+    "verified_head": "85bcbe00b62a52fbc50e963865a5557d1f428a43"
   },
   "external_method_reference": {
     "repository": "Loofy147/Machine",
@@ -123,7 +123,7 @@
       "external_reference": "Loofy147/Machine: docs/BRANCH-EVIDENCE-AND-RESEARCH-HANDLING.md; docs/EVIDENCE-SPECIFICATION-DISPOSITION-CONTRACT-v0.1.md; docs/RESEARCH-STATE-CANONICALIZATION-v0.1.md",
       "disposition": "CONFIRMED",
       "limits": "Methodological control; not a mathematical result.",
-      "verified_commit": "2fac409094b24fb0c328dd79297d60824f60fccf"
+      "verified_commit": "85bcbe00b62a52fbc50e963865a5557d1f428a43"
     },
     {
       "claim_id": "DM-REP-001",
@@ -192,9 +192,10 @@
     }
   ],
   "verification_context": {
-    "run": "github-actions:37836735515",
+    "run": "github-actions:37836842551",
     "test_suite": "43 passed across Python 3.10, 3.11, 3.12, and 3.13",
-    "workflow_disposition": "FAILED_ONLY_AT_EVIDENCE_GATE",
-    "gate_reason": "claim registry still pointed at pre-n4 verification commit; no scientific test failure was observed"
+    "workflow_disposition": "SUCCESS",
+    "evidence_gate": "PASS",
+    "note": "The registry was rebound to the verified test tree before this clean run; no evidence-path drift was detected."
   }
 }
