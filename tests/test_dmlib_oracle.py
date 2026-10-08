@@ -124,3 +124,14 @@ def test_modular_determinant_matches_independent_oracle():
     p = 101
     for matrix in matrices:
         assert det_mod(matrix, p) == det_mod_p(matrix, p)
+
+
+def test_ternary_cap_does_not_abort_later_decidable_twist():
+    # G is represented by a GF(3) skew matrix supported on the path 0-1-2-3.
+    # Twisting by 0 is directly decidable. Twisting by 5 creates a denser
+    # support with two non-tree edges, which exceeds cap=1.
+    G = {0, 3, 6, 12, 15}
+    ordered_twists = [5, 0]
+    F = [x ^ 0 for x in G]
+    from verification.dmlib import ternary_representable
+    assert ternary_representable(F, 4, p=3, cap=1) is True
