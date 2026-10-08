@@ -38,8 +38,15 @@ Date: 2026-10-08
 - A known historical unordered-pair weak-verifier false positive is preserved as a regression: feasible masks `{1, 2, 3, 4}` pass the old verifier but fail full symmetric exchange.
 - Modular determinant results are cross-checked against an independent implementation on fixed integer matrices over `F_101`.
 - TDD evidence: commit `fe48901...` intentionally produced a RED collection failure because the oracle was absent; the oracle and tests were then added and the corrected sequence culminated in workflow `37832187993`.
-- Current verification: workflow `37832187993` passed Python 3.10, 3.11, 3.12, and 3.13; Python 3.10 reported `35 passed in 1.38s`.
+- Current verification: workflows `37835503070` and `37835509684` passed Python 3.10, 3.11, 3.12, and 3.13; the four jobs reported 38 passed each.
 
+## Oracle hardening — 2026-10-08
+
+- The `ternary_representable()` cap path was reproduced as a real oracle bug: an early `return None` could suppress a later twist that was exactly representable.
+- The regression first failed on Python 3.13 with `None is True`; the implementation was then changed to accumulate an `undecided` flag and continue scanning twists.
+- The corrected oracle passes the controlled n=5 regression and the full test suite.
+- `binary_representable()` and `ternary_representable()` were cross-checked against exhaustive finite-field matrix enumeration for every parity-uniform family on n=4.
+- The n=4 representability suite remains fast enough for the normal matrix CI: all four Python jobs passed with 38 tests.
 ## Current implementation hardening
 
 - Exact exchange distance for parity-uniform delta-matroids is derived from symmetric exchange plus parity: `d(A,B) = |A Delta B|/2`.
