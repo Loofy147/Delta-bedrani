@@ -1,0 +1,120 @@
+{
+  "schema": "delta-bedrani-claim-registry-v0.1",
+  "updated": "2026-10-08",
+  "project": {
+    "repository": "Loofy147/Delta-bedrani",
+    "branch": "feature/exchange-engine-v0",
+    "head": "3adf3a7ac79dcd44988dd1c3349cd471325f6477"
+  },
+  "external_method_reference": {
+    "repository": "Loofy147/Machine",
+    "main_head": "2d5f6bd0513ecd2d9f29f395d4d95c90849b2648",
+    "relevant_evidence_contract": {
+      "branch": "research/machine-substrate-primitive-closure-v0",
+      "head": "5db33b068c0973606e08b596a300e99952764aeb",
+      "paths": [
+        "docs/SUBSTRATE-FRONTIER-CONTRACT-v0.1.md",
+        "docs/EVIDENCE-COVERAGE-AUDIT-v0.1.md",
+        "docs/RESEARCH-STATE-CANONICALIZATION-v0.1.md"
+      ]
+    },
+    "transfer_boundary": "methodological_controls_only"
+  },
+  "claims": [
+    {
+      "claim_id": "DM-EXCHANGE-001",
+      "claim": "Matching subset-DP in MatchingGraph.feasible_masks agrees with an independent matching recurrence on all labeled simple graphs with n=5.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "1024 labeled simple graphs on n=5",
+      "source_path": "src/delta_matroid/matching.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37832297010",
+      "disposition": "CONFIRMED",
+      "limits": "Finite n=5 only; does not establish asymptotic complexity or universal implementation equivalence."
+    },
+    {
+      "claim_id": "DM-EXCHANGE-002",
+      "claim": "DeltaMatroid constructor acceptance agrees with an independent symmetric-exchange predicate over every nonempty set family on n=3.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "255 nonempty set systems on n=3",
+      "source_path": "src/delta_matroid/core.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37832297010",
+      "disposition": "CONFIRMED",
+      "limits": "Finite n=3 only."
+    },
+    {
+      "claim_id": "DM-THEORY-001",
+      "claim": "On all n=3 delta-matroids tested, the implemented Theorem-A-related predicates agree: weak Wenzel, hyperplane exchange, parity-completed lift even-delta status, and the antipode condition.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "All nonempty delta-matroid families on n=3",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37832297010",
+      "disposition": "CONFIRMED",
+      "limits": "Empirical finite-domain confirmation of theorem characterisations, not an independent proof of the theorem."
+    },
+    {
+      "claim_id": "DM-THEORY-002",
+      "claim": "On all n=3 even delta-matroids tested, Wenzel and hyperplane-even exchange agree.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "All n=3 even delta-matroids",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37832297010",
+      "disposition": "CONFIRMED",
+      "limits": "Finite-domain experimental confirmation only."
+    },
+    {
+      "claim_id": "DM-EXCHANGE-003",
+      "claim": "The lazy BitmaskExchangeEngine neighbor relation agrees with the independent dmlib exchange-neighbor oracle on the tested n=7 matching family.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "DIFFERENTIAL",
+      "scope": "One independently specified n=7 matching graph family",
+      "source_path": "src/delta_matroid/exchange.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37832297010",
+      "disposition": "CONFIRMED",
+      "limits": "Targeted family, not exhaustive over all n=7 families."
+    },
+    {
+      "claim_id": "DM-ALGEBRA-001",
+      "claim": "The repository modular determinant agrees with the independent dmlib determinant on fixed integer matrices over F_101.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "DIFFERENTIAL",
+      "scope": "Three fixed matrices",
+      "source_path": "src/delta_matroid/field.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37832297010",
+      "disposition": "CONFIRMED",
+      "limits": "Targeted matrices and modulus only."
+    },
+    {
+      "claim_id": "DM-REGRESSION-001",
+      "claim": "The historical unordered-pair weak verifier is not a sound replacement for full symmetric exchange.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "REGRESSION",
+      "scope": "Counterexample family {1,2,3,4}",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37832187993",
+      "disposition": "REGRESSION",
+      "limits": "Protects a known counterexample; does not characterize all unsound verifier variants."
+    },
+    {
+      "claim_id": "DM-METHOD-001",
+      "claim": "Repository-level research claims should retain branch/commit provenance and distinguish evaluator result from scientific conclusion.",
+      "status": "ESTABLISHED",
+      "evidence_class": "OPERATING-PROTOCOL",
+      "scope": "Delta-bedrani research workflow",
+      "source_path": "docs/RESEARCH-OPERATING-CONTRACT-v0.1.md",
+      "external_reference": "Loofy147/Machine: docs/BRANCH-EVIDENCE-AND-RESEARCH-HANDLING.md; docs/EVIDENCE-SPECIFICATION-DISPOSITION-CONTRACT-v0.1.md; docs/RESEARCH-STATE-CANONICALIZATION-v0.1.md",
+      "disposition": "CONFIRMED",
+      "limits": "Methodological control; not a mathematical result."
+    }
+  ]
+}
