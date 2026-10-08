@@ -1,6 +1,6 @@
 # Research status — Delta-bedrani v0.1.0
 
-Date: 2026-09-27
+Date: 2026-10-08
 
 ## Repository state
 
@@ -26,6 +26,19 @@ Date: 2026-09-27
 - K_n counts agree with 2^(n-1) through n=24 in the bitmask backend.
 - The lazy exchange engine has targeted tests for one-/two-bit exchange generation, connectivity, guarded exact diameter, plus exhaustive theorem-path checks for every feasible C6 endpoint pair; BFS remains an independent path oracle. Small-system twist/minor closure and direct-sum laws are also covered.
 - Observed exchange-graph results for C6, K8, Petersen, K10, and K12 are recorded in `benchmarks/OBSERVED_2026-09-27.md`.
+
+## Independent oracle verification — 2026-10-08
+
+- `verification/dmlib.py` provides an implementation-independent reference layer for symmetric exchange, strong/weak Wenzel exchange, hyperplane exchange, lifting, antipode conditions, exchange graphs, matching subset-DP, modular determinants, GF(2) principal-minor families, GF(3) Pfaffian families, and small exact optimization.
+- Differential tests were added in `tests/test_dmlib_oracle.py`; the oracle imports no `delta_matroid` package code.
+- Exhaustive n=3 set-system checks compare constructor acceptance against the independent symmetric-exchange oracle.
+- All n=5 labeled simple graphs (1024 graphs) compare `MatchingGraph.feasible_masks()` against the independent matching DP.
+- Theorem A characterisation equivalences are checked on all nonempty n=3 delta-matroid families: hyperplane exchange, weak Wenzel, parity-completed lift, and peerless-antipode condition.
+- Theorem 2.3 equivalences are checked on all n=3 even delta-matroids.
+- A known historical unordered-pair weak-verifier false positive is preserved as a regression: feasible masks `{1, 2, 3, 4}` pass the old verifier but fail full symmetric exchange.
+- Modular determinant results are cross-checked against an independent implementation on fixed integer matrices over `F_101`.
+- TDD evidence: commit `fe48901...` intentionally produced a RED collection failure because the oracle was absent; the oracle and tests were then added and the corrected sequence culminated in workflow `37832187993`.
+- Current verification: workflow `37832187993` passed Python 3.10, 3.11, 3.12, and 3.13; Python 3.10 reported `35 passed in 1.38s`.
 
 ## Current implementation hardening
 
