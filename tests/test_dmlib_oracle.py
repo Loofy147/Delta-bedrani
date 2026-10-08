@@ -64,6 +64,21 @@ def test_theorem_a_strong_delta_characterizations_match_on_all_n3_families():
         assert antipode_strong(family) is strong
 
 
+def test_theorem_a_strong_delta_characterizations_match_on_all_n4_families():
+    n = 4
+    checked = 0
+    for family in all_families(n):
+        if not is_delta(family):
+            continue
+        checked += 1
+        lifted = lift(family, n)
+        strong = hyperplane_delta(family)
+        assert weak_wenzel(family) is strong
+        assert (is_delta(lifted) and is_even_sys(lifted)) == strong
+        assert antipode_strong(family) is strong
+    assert checked == 5959
+
+
 def test_theorem_2_3_even_characterizations_match_on_all_even_n3_delta_families():
     n = 3
     for family in all_families(n):
@@ -71,6 +86,18 @@ def test_theorem_2_3_even_characterizations_match_on_all_even_n3_delta_families(
             continue
         assert hyperplane_even(family)
         assert wenzel(family)
+
+
+def test_theorem_2_3_even_characterizations_match_on_all_even_n4_delta_families():
+    n = 4
+    checked = 0
+    for family in all_families(n):
+        if not (is_delta(family) and is_even_sys(family)):
+            continue
+        checked += 1
+        assert hyperplane_even(family)
+        assert wenzel(family)
+    assert checked == 294
 
 
 def test_historical_unordered_weak_verifier_has_known_n3_false_positive():
