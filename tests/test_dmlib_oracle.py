@@ -5,11 +5,16 @@ import pytest
 from delta_matroid import DeltaMatroid, MatchingGraph, det_mod_p
 from delta_matroid.exchange import BitmaskExchangeEngine
 from verification.dmlib import (
+    antipode_strong,
     det_mod,
+    hyperplane_delta,
+    hyperplane_even,
     is_delta,
     is_even_sys,
+    lift,
     neighbors as oracle_neighbors,
     pm_family_dp,
+    weak_wenzel,
     wenzel,
 )
 
@@ -42,6 +47,27 @@ def test_constructor_acceptance_matches_independent_delta_oracle_n3():
                 ))
 
 
+def test_theorem_a_strong_delta_characterizations_match_on_all_n3_families():
+    n = 3
+    for family in all_families(n):
+        if not is_delta(family):
+            continue
+        lifted = lift(family, n)
+        strong = hyperplane_delta(family)
+        assert weak_wenzel(family) is strong
+        assert is_delta(lifted) and is_even_sys(lifted) is strong
+        assert antipode_strong(family) is strong
+
+
+def test_theorem_2_3_even_characterizations_match_on_all_even_n3_delta_families():
+    n = 3
+    for family in all_families(n):
+        if not (is_delta(family) and is_even_sys(family)):
+            continue
+        assert hyperplane_even(family)
+        assert wenzel(family)
+
+
 def test_lazy_exchange_neighbors_match_independent_oracle():
     G = MatchingGraph.from_edges(
         range(7),
@@ -53,10 +79,11 @@ def test_lazy_exchange_neighbors_match_independent_oracle():
         masks[D.mask(F)] = 1
 
     engine = BitmaskExchangeEngine(7, masks, even=True)
+    oracle_family = masks_to_family(masks)
     for X in range(1 << 7):
         if not masks[X]:
             continue
-        expected = set(oracle_neighbors(masks_to_family(masks), X, 7, mode="both"))
+        expected = set(oracle_neighbors(oracle_family, X, 7, mode="both"))
         assert set(engine.neighbors(X)) == expected
 
 
