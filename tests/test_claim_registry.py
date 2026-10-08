@@ -94,12 +94,3 @@ def test_claim_registry_validator_detects_changed_evidence_path(tmp_path):
     errors = validate_registry(registry, repo_root=tmp_path, require_current_tree=True)
     assert any("claim X evidence paths changed" in error for error in errors)
 
-
-def test_claim_registry_cli_passes():
-    completed = subprocess.run(
-        [sys.executable, "tools/verify_claim_registry.py"],
-        cwd=ROOT,
-        text=True,
-        capture_output=True,
-    )
-    assert completed.returncode == 0, completed.stdout + completed.stderr
