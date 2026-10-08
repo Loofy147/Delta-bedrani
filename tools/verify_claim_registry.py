@@ -21,12 +21,16 @@ REQUIRED_CLAIM = (
     "evidence_class",
     "scope",
     "source_path",
-    "verification_path",
-    "verification_run",
     "verified_commit",
     "disposition",
     "limits",
 )
+EMPIRICAL_EVIDENCE_CLASSES = {
+    "DIFFERENTIAL",
+    "EXHAUSTIVE-FINITE",
+    "REGRESSION",
+    "BENCHMARK",
+}
 VALID_STATUSES = {
     "ESTABLISHED",
     "EXPERIMENTALLY_SUPPORTED",
@@ -162,8 +166,14 @@ def validate_registry(
             )
 
         verification_path = claim.get("verification_path")
+        verification_run = claim.get("verification_run")
         verified_commit = claim.get("verified_commit")
         source_path = claim.get("source_path")
+        if evidence_class in EMPIRICAL_EVIDENCE_CLASSES:
+            if not verification_path:
+                errors.append(f"claim {claim_id} missing verification_path")
+            if not verification_run:
+                errors.append(f"claim {claim_id} missing verification_run")
         if verification_path and not (repo_root / verification_path).is_file():
             errors.append(f"claim {claim_id} verification_path does not exist")
         if source_path and not (repo_root / source_path).is_file():
