@@ -380,6 +380,7 @@ def skew_family_modp(A, n, p):
 def ternary_representable(F, n, p=3, cap=1 << 14):
     if p != 3:
         raise ValueError("only GF(3) implemented")
+    undecided = False
     for X in F:
         G = twist(F, X)
         if not all(pc(s) % 2 == 0 for s in G):
@@ -400,7 +401,8 @@ def ternary_representable(F, n, p=3, cap=1 << 14):
             else:
                 other.append((i, j))
         if (1 << len(other)) > cap:
-            return None
+            undecided = True
+            continue
         for signs in itertools.product((1, 2), repeat=len(other)):
             A = [[0] * n for _ in range(n)]
             for (i, j) in tree:
@@ -409,7 +411,7 @@ def ternary_representable(F, n, p=3, cap=1 << 14):
                 A[i][j], A[j][i] = s, (-s) % 3
             if skew_family_modp(A, n, 3) == G:
                 return True
-    return False
+    return None if undecided else False
 
 def pm_family_dp(n, adjmask):
     N = 1 << n
