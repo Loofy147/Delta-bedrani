@@ -48,6 +48,14 @@ Date: 2026-10-08
 - `DeltaMatroid` now rejects a family that fails symmetric exchange at construction; theorem-backed internal constructors are used for known-valid closure paths.
 - Exact diameter uses O(|F|) distance state per source rather than arrays of size 2^n.
 
+## Research-state controls
+
+- Research claims now follow `docs/RESEARCH-OPERATING-CONTRACT-v0.1.md`.
+- The machine-readable claim registry is `evidence/claims-v0.1.json`.
+- Claims retain source branch/commit, evidence class, scope, disposition, limitations, and verification run.
+- `verification/dmlib.py` is an independent oracle; its agreement with the package is differential evidence, not a mathematical proof.
+- Methodological provenance controls were adapted from the audited `Loofy147/Machine` research protocol. No Machine mechanism is treated as a Delta-bedrani computational primitive.
+
 ## Unknown / deliberately unclaimed
 
 - A randomized Tutte zero is not an infeasibility certificate.
