@@ -68,6 +68,12 @@ def test_theorem_2_3_even_characterizations_match_on_all_even_n3_delta_families(
         assert wenzel(family)
 
 
+def test_historical_unordered_weak_verifier_has_known_n3_false_positive():
+    family = {1, 2, 3, 4}
+    assert turn1_weak_verifier(family)
+    assert not is_delta(family)
+
+
 def test_lazy_exchange_neighbors_match_independent_oracle():
     G = MatchingGraph.from_edges(
         range(7),
