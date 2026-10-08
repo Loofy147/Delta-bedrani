@@ -49,3 +49,17 @@ The benchmark records feasible-set count, connectivity, feasible-table construct
 - No heuristic pruning based on a zero PPT entry.
 - No generic large-scale explicit exchange graph materialization.
 - No claim to implement every representation class of linear delta-matroids.
+
+
+## Research evidence discipline
+
+The repository separates implementation, independent verification, experiment results, and scientific interpretation.
+
+Material claims are tracked in `evidence/claims-v0.1.json` with repository/branch/commit provenance, evidence class, scope, disposition, limits, and verification run.
+
+`verification/dmlib.py` is an independent differential oracle and does not import the package implementation.
+
+Finite exhaustive checks are labeled as finite-domain evidence; they are not promoted to general or asymptotic claims without additional evidence.
+
+The repository follows `docs/RESEARCH-OPERATING-CONTRACT-v0.1.md` for branch identity, result-vs-conclusion separation, evaluator failure handling, and evidence regression discipline.
+
