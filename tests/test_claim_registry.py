@@ -25,7 +25,17 @@ def test_claim_registry_validator_rejects_missing_provenance_fields(tmp_path):
     payload = {
         "schema": "delta-bedrani-claim-registry-v0.1",
         "project": {"repository": "Loofy147/Delta-bedrani"},
-        "claims": [{"claim_id": "X", "claim": "x"}],
+        "claims": [{
+            "claim_id": "X",
+            "claim": "x",
+            "status": "EXPERIMENTALLY_SUPPORTED",
+            "evidence_class": "DIFFERENTIAL",
+            "scope": "test",
+            "source_path": "evidence.txt",
+            "verified_commit": "deadbeef",
+            "disposition": "CONFIRMED",
+            "limits": "finite",
+        }],
     }
     registry = tmp_path / "claims.json"
     registry.write_text(json.dumps(payload), encoding="utf-8")
