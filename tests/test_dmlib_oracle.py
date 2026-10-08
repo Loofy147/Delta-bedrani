@@ -127,11 +127,10 @@ def test_modular_determinant_matches_independent_oracle():
 
 
 def test_ternary_cap_does_not_abort_later_decidable_twist():
-    # G is represented by a GF(3) skew matrix supported on the path 0-1-2-3.
-    # Twisting by 0 is directly decidable. Twisting by 5 creates a denser
-    # support with two non-tree edges, which exceeds cap=1.
-    G = {0, 3, 6, 12, 15}
-    ordered_twists = [5, 0]
-    F = [x ^ 0 for x in G]
+    # G is represented by a GF(3) skew matrix supported on a tree.
+    # The first feasible X=20 creates a twist whose support has two
+    # non-tree edges, so cap=1 forces that candidate to be skipped.
+    # The later feasible X=0 is directly representable and must still be tried.
+    G = [20, 0, 5, 6, 24, 29, 30]
     from verification.dmlib import ternary_representable
-    assert ternary_representable(F, 4, p=3, cap=1) is True
+    assert ternary_representable(G, 5, p=3, cap=1) is True
