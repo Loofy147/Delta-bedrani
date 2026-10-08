@@ -55,7 +55,7 @@ def test_theorem_a_strong_delta_characterizations_match_on_all_n3_families():
         lifted = lift(family, n)
         strong = hyperplane_delta(family)
         assert weak_wenzel(family) is strong
-        assert is_delta(lifted) and is_even_sys(lifted) is strong
+        assert (is_delta(lifted) and is_even_sys(lifted)) == strong
         assert antipode_strong(family) is strong
 
 
