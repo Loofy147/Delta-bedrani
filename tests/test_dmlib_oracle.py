@@ -14,6 +14,7 @@ from verification.dmlib import (
     lift,
     neighbors as oracle_neighbors,
     pm_family_dp,
+    turn1_weak_verifier,
     weak_wenzel,
     wenzel,
 )
