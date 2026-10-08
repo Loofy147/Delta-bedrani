@@ -1,4 +1,4 @@
-from itertools import combinations
+from itertools import combinations, product
 
 import pytest
 
@@ -6,6 +6,7 @@ from delta_matroid import DeltaMatroid, MatchingGraph, det_mod_p
 from delta_matroid.exchange import BitmaskExchangeEngine
 from verification.dmlib import (
     antipode_strong,
+    binary_representable,
     det_mod,
     hyperplane_delta,
     hyperplane_even,
@@ -14,6 +15,9 @@ from verification.dmlib import (
     lift,
     neighbors as oracle_neighbors,
     pm_family_dp,
+    family_gf2,
+    skew_family_modp,
+    ternary_representable,
     turn1_weak_verifier,
     weak_wenzel,
     wenzel,
@@ -134,3 +138,60 @@ def test_ternary_cap_does_not_abort_later_decidable_twist():
     G = [20, 0, 5, 6, 24, 29, 30]
     from verification.dmlib import ternary_representable
     assert ternary_representable(G, 5, p=3, cap=1) is True
+
+
+def _even_uniform_families(n):
+    subsets = tuple(range(1 << n))
+    even_masks = tuple(s for s in subsets if s.bit_count() % 2 == 0)
+    odd_masks = tuple(s for s in subsets if s.bit_count() % 2 == 1)
+    for source in (even_masks, odd_masks):
+        for code in range(1, 1 << len(source)):
+            yield frozenset(source[i] for i in range(len(source)) if code >> i & 1)
+
+
+def _all_gf2_symmetric_families(n):
+    positions = [(i, j) for i in range(n) for j in range(i, n)]
+    out = set()
+    for bits_value in range(1 << len(positions)):
+        rows = [0] * n
+        for k, (i, j) in enumerate(positions):
+            if (bits_value >> k) & 1:
+                rows[i] |= 1 << j
+                if i != j:
+                    rows[j] |= 1 << i
+        out.add(frozenset(family_gf2(rows, n)))
+    return out
+
+
+def _all_gf3_skew_families(n):
+    positions = [(i, j) for i in range(n) for j in range(i + 1, n)]
+    out = set()
+    for values in product((0, 1, 2), repeat=len(positions)):
+        matrix = [[0] * n for _ in range(n)]
+        for (i, j), value in zip(positions, values):
+            matrix[i][j] = value
+            matrix[j][i] = (-value) % 3
+        out.add(frozenset(skew_family_modp(matrix, n, 3)))
+    return out
+
+
+def _all_twists(families, n):
+    return {
+        frozenset(S ^ X for S in family)
+        for family in families
+        for X in range(1 << n)
+    }
+
+
+def test_binary_representability_matches_exhaustive_gf2_matrices_for_all_n4_even_families():
+    n = 4
+    represented = _all_twists(_all_gf2_symmetric_families(n), n)
+    for family in _even_uniform_families(n):
+        assert binary_representable(set(family), n) is (family in represented)
+
+
+def test_ternary_representability_matches_exhaustive_gf3_skew_matrices_for_all_n4_parity_uniform_families():
+    n = 4
+    represented = _all_twists(_all_gf3_skew_families(n), n)
+    for family in _even_uniform_families(n):
+        assert ternary_representable(set(family), n, p=3) is (family in represented)
