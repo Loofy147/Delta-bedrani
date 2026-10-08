@@ -26,8 +26,8 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install "pytest>=8"
 
-      - name: Run claim registry integrity gate
-        run: python tools/verify_claim_registry.py
-
       - name: Run test suite
         run: python -m pytest
+
+      - name: Run claim registry integrity gate
+        run: python tools/verify_claim_registry.py
