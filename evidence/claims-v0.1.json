@@ -5,7 +5,7 @@
     "repository": "Loofy147/Delta-bedrani",
     "branch": "feature/exchange-engine-v0",
     "head": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91",
-    "verified_head": "2fac409094b24fb0c328dd79297d60824f60fccf"
+    "verified_head": "07b833088571a0525d8db618ac75e22298163d19"
   },
   "external_method_reference": {
     "repository": "Loofy147/Machine",
@@ -30,10 +30,10 @@
       "scope": "1024 labeled simple graphs on n=5",
       "source_path": "src/delta_matroid/matching.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37832297010",
+      "verification_run": "github-actions:37836735515 (test-suite PASS; workflow gate intentionally rejected stale registry)",
       "disposition": "CONFIRMED",
       "limits": "Finite n=5 only; does not establish asymptotic complexity or universal implementation equivalence.",
-      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
+      "verified_commit": "07b833088571a0525d8db618ac75e22298163d19"
     },
     {
       "claim_id": "DM-EXCHANGE-002",
@@ -43,10 +43,10 @@
       "scope": "255 nonempty set systems on n=3",
       "source_path": "src/delta_matroid/core.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37832297010",
+      "verification_run": "github-actions:37836735515 (test-suite PASS; workflow gate intentionally rejected stale registry)",
       "disposition": "CONFIRMED",
       "limits": "Finite n=3 only.",
-      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
+      "verified_commit": "07b833088571a0525d8db618ac75e22298163d19"
     },
     {
       "claim_id": "DM-THEORY-001",
@@ -56,10 +56,10 @@
       "scope": "All nonempty delta-matroid families on n=3",
       "source_path": "verification/dmlib.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37832297010",
+      "verification_run": "github-actions:37836735515 (test-suite PASS; workflow gate intentionally rejected stale registry)",
       "disposition": "CONFIRMED",
       "limits": "Empirical finite-domain confirmation of theorem characterisations, not an independent proof of the theorem.",
-      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
+      "verified_commit": "07b833088571a0525d8db618ac75e22298163d19"
     },
     {
       "claim_id": "DM-THEORY-002",
@@ -69,10 +69,10 @@
       "scope": "All n=3 even delta-matroids",
       "source_path": "verification/dmlib.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37832297010",
+      "verification_run": "github-actions:37836735515 (test-suite PASS; workflow gate intentionally rejected stale registry)",
       "disposition": "CONFIRMED",
       "limits": "Finite-domain experimental confirmation only.",
-      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
+      "verified_commit": "07b833088571a0525d8db618ac75e22298163d19"
     },
     {
       "claim_id": "DM-EXCHANGE-003",
@@ -82,10 +82,10 @@
       "scope": "One independently specified n=7 matching graph family",
       "source_path": "src/delta_matroid/exchange.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37832297010",
+      "verification_run": "github-actions:37836735515 (test-suite PASS; workflow gate intentionally rejected stale registry)",
       "disposition": "CONFIRMED",
       "limits": "Targeted family, not exhaustive over all n=7 families.",
-      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
+      "verified_commit": "07b833088571a0525d8db618ac75e22298163d19"
     },
     {
       "claim_id": "DM-ALGEBRA-001",
@@ -95,10 +95,10 @@
       "scope": "Three fixed matrices",
       "source_path": "src/delta_matroid/field.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37832297010",
+      "verification_run": "github-actions:37836735515 (test-suite PASS; workflow gate intentionally rejected stale registry)",
       "disposition": "CONFIRMED",
       "limits": "Targeted matrices and modulus only.",
-      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
+      "verified_commit": "07b833088571a0525d8db618ac75e22298163d19"
     },
     {
       "claim_id": "DM-REGRESSION-001",
@@ -108,10 +108,10 @@
       "scope": "Counterexample family {1,2,3,4}",
       "source_path": "verification/dmlib.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37832187993",
+      "verification_run": "github-actions:37836735515 (test-suite PASS; workflow gate intentionally rejected stale registry)",
       "disposition": "REGRESSION",
       "limits": "Protects a known counterexample; does not characterize all unsound verifier variants.",
-      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
+      "verified_commit": "07b833088571a0525d8db618ac75e22298163d19"
     },
     {
       "claim_id": "DM-METHOD-001",
@@ -133,10 +133,10 @@
       "scope": "All parity-uniform families on n=4; all 2^(4*5/2) symmetric GF(2) matrices and all twists",
       "source_path": "verification/dmlib.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37835503070",
+      "verification_run": "github-actions:37836735515 (test-suite PASS; workflow gate intentionally rejected stale registry)",
       "disposition": "CONFIRMED",
       "limits": "Finite n=4 and the implemented principal-minor/twist model only.",
-      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
+      "verified_commit": "07b833088571a0525d8db618ac75e22298163d19"
     },
     {
       "claim_id": "DM-REP-002",
@@ -146,10 +146,10 @@
       "scope": "All parity-uniform families on n=4; all 3^6 skew upper-triangular GF(3) assignments and all twists",
       "source_path": "verification/dmlib.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37835503070",
+      "verification_run": "github-actions:37836735515 (test-suite PASS; workflow gate intentionally rejected stale registry)",
       "disposition": "CONFIRMED",
       "limits": "Finite n=4 and the implemented GF(3) sign-normalized model; larger n and cap-limited cases remain outside this exhaustive evidence.",
-      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
+      "verified_commit": "07b833088571a0525d8db618ac75e22298163d19"
     },
     {
       "claim_id": "DM-ORACLE-001",
@@ -159,10 +159,42 @@
       "scope": "Controlled n=5 regression with cap=1",
       "source_path": "verification/dmlib.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37835503070",
+      "verification_run": "github-actions:37836735515 (test-suite PASS; workflow gate intentionally rejected stale registry)",
       "disposition": "REGRESSION",
       "limits": "Protects the discovered early-return failure mode; does not prove all cap-edge cases.",
-      "verified_commit": "ea74fb8d2dbcd2e4a35ef0905c16916351829b91"
+      "verified_commit": "07b833088571a0525d8db618ac75e22298163d19"
+    },
+    {
+      "claim_id": "DM-THEORY-003",
+      "claim": "On all n=4 delta-matroids tested, the independent Theorem-A characterisations agree: weak Wenzel, hyperplane exchange, parity-completed lift even-delta status, and the peerless-antipode condition.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "All 5959 nonempty delta-matroid families on n=4",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37836735515 (test-suite PASS; workflow gate intentionally rejected stale registry)",
+      "verified_commit": "07b833088571a0525d8db618ac75e22298163d19",
+      "disposition": "CONFIRMED",
+      "limits": "Empirical finite-domain confirmation of theorem characterisations, not an independent proof of the theorem; covers Theorem A items represented by these four predicates, not the isolated-antipode item."
+    },
+    {
+      "claim_id": "DM-THEORY-004",
+      "claim": "On all n=4 even delta-matroids tested, Wenzel and hyperplane-even exchange agree.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "All 294 even delta-matroid families on n=4",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37836735515 (test-suite PASS; workflow gate intentionally rejected stale registry)",
+      "verified_commit": "07b833088571a0525d8db618ac75e22298163d19",
+      "disposition": "CONFIRMED",
+      "limits": "Finite-domain experimental confirmation only."
     }
-  ]
+  ],
+  "verification_context": {
+    "run": "github-actions:37836735515",
+    "test_suite": "43 passed across Python 3.10, 3.11, 3.12, and 3.13",
+    "workflow_disposition": "FAILED_ONLY_AT_EVIDENCE_GATE",
+    "gate_reason": "claim registry still pointed at pre-n4 verification commit; no scientific test failure was observed"
+  }
 }
