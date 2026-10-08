@@ -38,7 +38,7 @@ Date: 2026-10-08
 - A known historical unordered-pair weak-verifier false positive is preserved as a regression: feasible masks `{1, 2, 3, 4}` pass the old verifier but fail full symmetric exchange.
 - Modular determinant results are cross-checked against an independent implementation on fixed integer matrices over `F_101`.
 - TDD evidence: commit `fe48901...` intentionally produced a RED collection failure because the oracle was absent; the oracle and tests were then added and the corrected sequence culminated in workflow `37832187993`.
-- Current verification: workflows `37835503070` and `37835509684` passed Python 3.10, 3.11, 3.12, and 3.13; the four jobs reported 38 passed each.
+- Current verification: workflow `37836842551` completed successfully on Python 3.10, 3.11, 3.12, and 3.13; each job reported 43 passed, and the claim-registry integrity gate also passed.
 
 ## Oracle hardening — 2026-10-08
 
@@ -70,5 +70,5 @@ Date: 2026-10-08
 - No portable hardware-independent runtime is claimed.
 - Exact all-pairs diameter is guarded by a feasible-vertex limit.
 - Large explicit exchange-graph materialization is unsupported by design.
-- GitHub Actions workflow run 36332131299 completed successfully for all four Python matrix jobs at head `7db177fafc2da05e523e524973899d5864013ddb`. Cleanup/test commits after that head require their own current-head CI evidence.
+- GitHub Actions workflow run `37836842551` is the current verified branch-head CI evidence for the feature branch.
 - The ecosystem scan found active third-party implementation work (for example, an open 2026 Jacobian issue); novelty claims are therefore scoped to this repository's exact architecture and evidence workflow.
