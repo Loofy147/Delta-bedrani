@@ -247,14 +247,32 @@ def test_isolated_antipode_requires_exactly_two_feasible_sets_in_the_interval():
     assert theorem_a_local_antipode_condition(full_cube)
 
 
-def test_theorem_a_fifth_characterization_matches_strong_status_for_all_n4_delta_matroids():
+def test_theorem_a_fifth_characterization_matches_strong_exchange_on_all_n4_set_systems():
     from verification.dmlib import theorem_a_local_antipode_condition
 
     n = 4
     checked = 0
     for family in all_families(n):
-        if not is_delta(family):
-            continue
         checked += 1
-        assert theorem_a_local_antipode_condition(family) is hyperplane_delta(family)
-    assert checked == 5959
+        expected = is_delta(family) and hyperplane_delta(family)
+        assert theorem_a_local_antipode_condition(family) is expected, sorted(family)
+    assert checked == 65535
+
+
+def test_isolated_antipode_predicate_matches_every_n5_family_of_size_at_most_three():
+    from verification.dmlib import has_isolated_antipode
+
+    # Every dimension-5 antipodal pair on a 5-element ground set consists of
+    # opposite vertices, whose interval is the entire cube. Such a pair is
+    # isolated exactly when it is the whole feasible family (of size two).
+    checked = 0
+    for size in (1, 2, 3):
+        for family_tuple in combinations(range(32), size):
+            family = set(family_tuple)
+            expected = (
+                size == 2
+                and (family_tuple[0] ^ family_tuple[1]).bit_count() == 5
+            )
+            assert has_isolated_antipode(family, min_dimension=5) is expected
+            checked += 1
+    assert checked == 5488
