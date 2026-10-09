@@ -302,3 +302,18 @@ def test_theorem_a_item5_matches_strong_exchange_on_all_n6_systems_with_at_most_
             assert theorem_a_local_antipode_condition(family) is expected, sorted(family)
             checked += 1
     assert checked == 43744
+
+
+def test_theorem_a_item5_matches_strong_exchange_on_every_n6_four_set_family_with_large_antipodes():
+    from verification.dmlib import theorem_a_local_antipode_condition
+
+    checked = 0
+    for family_tuple in combinations(range(64), 4):
+        if not any((A ^ B).bit_count() >= 5
+                   for A, B in combinations(family_tuple, 2)):
+            continue
+        family = set(family_tuple)
+        expected = is_delta(family) and hyperplane_delta(family)
+        assert theorem_a_local_antipode_condition(family) is expected, sorted(family)
+        checked += 1
+    assert checked == 327936
