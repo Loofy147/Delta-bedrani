@@ -8,7 +8,7 @@ The package deliberately separates three layers:
 
 1. **Exact combinatorial authority** — deterministic matching subset-DP and explicit feasible sets.
 2. **Exact algebraic certificate** — one global randomized Tutte matrix over a finite field, modular determinant, and PPT certificates.
-3. **Structural experiments** — Bouchet symmetric exchange, Wenzel strong simultaneous exchange, and exchange-graph analysis.
+3. **Structural experiments** — Bouchet symmetric exchange, Wenzel strong simultaneous exchange, and lazy basis/exchange-graph analysis.
 
 A nonzero finite-field Tutte determinant is a certificate of feasibility. A zero randomized determinant is **UNKNOWN**, not an infeasibility certificate.
 
@@ -27,7 +27,21 @@ The matching layer uses the deterministic recurrence:
 
 `S feasible iff a fixed v in S has a neighbor u in S with S-{u,v} feasible.`
 
+`DeltaMatroid(...)` validates symmetric exchange by default; theorem-backed constructors use an internal validated path only where the mathematical construction already establishes the invariant.
+
 For an explicit family, `delete`, `contract`, `restrict`, `twist`, and `direct_sum` are exact set-system operations.
+
+`is_even()` means parity-uniform: all feasible sets have the same cardinality parity. Matching delta-matroids are the normal/even subclass with even-sized feasible sets.
+
+For a parity-uniform delta-matroid, symmetric exchange plus parity gives an exact exchange-graph metric: `d(A, B) = |A Delta B| / 2`. At each step, symmetric exchange supplies a feasible two-element toggle toward the target, while parity rules out a one-element toggle. The implementation exposes `even_exchange_distance()` and `even_exchange_shortest_path()` for this verified case; BFS is retained as an independent oracle.
+
+## Benchmarking
+
+```bash
+PYTHONPATH=src python bench_exchange.py --diameter-limit 512
+```
+
+The benchmark records feasible-set count, connectivity, feasible-table construction time, component traversal time, and exact diameter when the configured vertex guard permits it. Measurements are environment-specific.
 
 ## Deliberate non-goals in v0.1
 
@@ -35,3 +49,17 @@ For an explicit family, `delete`, `contract`, `restrict`, `twist`, and `direct_s
 - No heuristic pruning based on a zero PPT entry.
 - No generic large-scale explicit exchange graph materialization.
 - No claim to implement every representation class of linear delta-matroids.
+
+
+## Research evidence discipline
+
+The repository separates implementation, independent verification, experiment results, and scientific interpretation.
+
+Material claims are tracked in `evidence/claims-v0.1.json` with repository/branch/commit provenance, evidence class, scope, disposition, limits, and verification run.
+
+`verification/dmlib.py` is an independent differential oracle and does not import the package implementation.
+
+Finite exhaustive checks are labeled as finite-domain evidence; they are not promoted to general or asymptotic claims without additional evidence.
+
+The repository follows `docs/RESEARCH-OPERATING-CONTRACT-v0.1.md` for branch identity, result-vs-conclusion separation, evaluator failure handling, and evidence regression discipline.
+

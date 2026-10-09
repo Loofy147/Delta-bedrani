@@ -2,7 +2,9 @@ name: tests
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - "feature/**"
   pull_request:
 
 jobs:
@@ -14,6 +16,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -26,3 +30,6 @@ jobs:
 
       - name: Run test suite
         run: python -m pytest
+
+      - name: Run claim registry integrity gate
+        run: python tools/verify_claim_registry.py

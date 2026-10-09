@@ -20,7 +20,7 @@ class ExchangeViolation:
 class DeltaMatroid:
     """Finite set-system representation of a delta-matroid."""
 
-    def __init__(self, groundset: Iterable[Element], feasible_sets: Iterable[SetLike]):
+    def __init__(self, groundset: Iterable[Element], feasible_sets: Iterable[SetLike], *, _validated: bool = False):
         E = frozenset(groundset)
         F = frozenset(frozenset(S) for S in feasible_sets)
         if not F:
@@ -33,9 +33,20 @@ class DeltaMatroid:
         self._index = {e: i for i, e in enumerate(sorted(E, key=repr))}
         self._ordered_groundset = tuple(sorted(E, key=repr))
 
+        if not _validated:
+            violation = self.verify_delta_axiom()
+            if violation is not None:
+                raise ValueError(
+                    f"feasible family violates symmetric exchange: {violation}"
+                )
+
     @classmethod
     def from_feasible_sets(cls, groundset: Iterable[Element], feasible_sets: Iterable[SetLike]):
-        return cls(groundset, feasible_sets)
+        return cls(groundset, feasible_sets, _validated=False)
+
+    @classmethod
+    def _from_validated(cls, groundset: Iterable[Element], feasible_sets: Iterable[SetLike]):
+        return cls(groundset, feasible_sets, _validated=True)
 
     @property
     def groundset(self) -> frozenset[Element]:
@@ -61,7 +72,9 @@ class DeltaMatroid:
         return hash((self._groundset, self._feasible))
 
     def is_even(self) -> bool:
-        return all(len(F) % 2 == 0 for F in self._feasible)
+        """Return True when all feasible sets have the same parity."""
+        parities = {len(F) % 2 for F in self._feasible}
+        return len(parities) == 1
 
     def is_normal(self) -> bool:
         return frozenset() in self._feasible
@@ -101,7 +114,7 @@ class DeltaMatroid:
         A = frozenset(subset)
         if not A <= self._groundset:
             raise ValueError("Twist set must be contained in the groundset.")
-        return DeltaMatroid(self._groundset, (F ^ A for F in self._feasible))
+        return DeltaMatroid._from_validated(self._groundset, (F ^ A for F in self._feasible))
 
     def _delete_feasible(self, e: Element) -> frozenset[frozenset[Element]]:
         if e in self.coloops():
@@ -123,7 +136,7 @@ class DeltaMatroid:
             raise ValueError("Deletion set must be contained in the groundset.")
         D = self
         for e in elements:
-            D = DeltaMatroid(D._groundset - {e}, D._delete_feasible(e))
+            D = DeltaMatroid._from_validated(D._groundset - {e}, D._delete_feasible(e))
         return D
 
     def _contract_one(self, e: Element) -> "DeltaMatroid":
@@ -132,7 +145,7 @@ class DeltaMatroid:
             newF = frozenset(self._feasible)
         else:
             newF = frozenset(F - {e} for F in self._feasible if e in F)
-        return DeltaMatroid(self._groundset - {e}, newF)
+        return DeltaMatroid._from_validated(self._groundset - {e}, newF)
 
     def contract(self, element: Element | Iterable[Element]) -> "DeltaMatroid":
         elements = self._normalize_elements(element, self._groundset)
@@ -152,7 +165,7 @@ class DeltaMatroid:
     def direct_sum(self, other: "DeltaMatroid") -> "DeltaMatroid":
         if self._groundset & other._groundset:
             raise ValueError("Direct sum requires disjoint groundsets.")
-        return DeltaMatroid(
+        return DeltaMatroid._from_validated(
             self._groundset | other._groundset,
             (A | B for A in self._feasible for B in other._feasible),
         )
@@ -164,8 +177,10 @@ class DeltaMatroid:
         return sum(1 << self._index[e] for e in S)
 
     def set_from_mask(self, mask: int) -> frozenset[Element]:
+        if not 0 <= mask < (1 << len(self._ordered_groundset)):
+            raise ValueError("mask outside groundset")
         return frozenset(
-            self._ordered_groundset[i]
+              self._ordered_groundset[i]
             for i in range(len(self._ordered_groundset))
             if mask >> i & 1
         )
@@ -200,6 +215,54 @@ class DeltaMatroid:
                     q.append(G)
         return len(seen) == len(self._feasible)
 
+    def even_exchange_distance(self, source: SetLike, target: SetLike) -> int:
+        """Exact basis-graph distance for a parity-uniform delta-matroid.
+
+        Symmetric exchange plus parity uniformity gives a feasible y != x
+        for each x in the symmetric difference, producing a path that
+        decreases |A Delta B| by two at every step. Every basis-graph edge
+        changes exactly two elements, so the lower and upper bounds coincide.
+        """
+        if not self.is_even():
+            raise ValueError("theorem distance requires an even delta-matroid")
+        s, t = frozenset(source), frozenset(target)
+        if s not in self._feasible or t not in self._feasible:
+            raise ValueError("Both endpoints must be feasible.")
+        return len(s ^ t) // 2
+
+    def even_exchange_shortest_path(
+        self,
+        source: SetLike,
+        target: SetLike,
+    ) -> tuple[frozenset[Element], ...]:
+        """Construct an exact shortest path from symmetric exchange + parity."""
+        if not self.is_even():
+            raise ValueError("theorem path requires an even delta-matroid")
+        current = frozenset(source)
+        target = frozenset(target)
+        if current not in self._feasible or target not in self._feasible:
+            raise ValueError("Both endpoints must be feasible.")
+        path = [current]
+        while current != target:
+            diff = current ^ target
+            x = next(iter(diff))
+            # Symmetric exchange guarantees that at least one y in diff\{x}
+            # makes current Delta {x,y} feasible; parity uniformity rules out y=x.
+            for y in diff:
+                if y == x:
+                    continue
+                candidate = current ^ {x, y}
+                if candidate in self._feasible:
+                    current = candidate
+                    path.append(current)
+                    break
+            else:
+                raise RuntimeError(
+                    "symmetric-exchange step not found; "
+                    "the family or verifier invariant is inconsistent."
+                )
+        return tuple(path)
+
     def shortest_path(self, source: SetLike, target: SetLike) -> tuple[frozenset[Element], ...]:
         s, t = frozenset(source), frozenset(target)
         if s not in self._feasible or t not in self._feasible:
@@ -223,7 +286,12 @@ class DeltaMatroid:
                 q.append(G)
         raise ValueError("Exchange graph is disconnected.")
 
-    def diameter(self) -> int:
+    def diameter(self, *, max_vertices: int = 1024) -> int:
+        if len(self._feasible) > max_vertices:
+            raise ValueError(
+                f"exact diameter disabled for {len(self._feasible)} feasible vertices; "
+                f"max_vertices={max_vertices}"
+            )
         max_distance = 0
         for source in self._feasible:
             dist = {source: 0}

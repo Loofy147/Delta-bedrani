@@ -1,0 +1,253 @@
+{
+  "schema": "delta-bedrani-claim-registry-v0.1",
+  "updated": "2026-10-09",
+  "project": {
+    "repository": "Loofy147/Delta-bedrani",
+    "branch": "feature/exchange-engine-v0",
+    "head": "0905968b44889c27d69ec3d547ba6a676702aba8",
+    "verified_head": "0905968b44889c27d69ec3d547ba6a676702aba8"
+  },
+  "external_method_reference": {
+    "repository": "Loofy147/Machine",
+    "main_head": "2d5f6bd0513ecd2d9f29f395d4d95c90849b2648",
+    "relevant_evidence_contract": {
+      "branch": "research/machine-substrate-primitive-closure-v0",
+      "head": "5db33b068c0973606e08b596a300e99952764aeb",
+      "paths": [
+        "docs/SUBSTRATE-FRONTIER-CONTRACT-v0.1.md",
+        "docs/EVIDENCE-COVERAGE-AUDIT-v0.1.md",
+        "docs/RESEARCH-STATE-CANONICALIZATION-v0.1.md"
+      ]
+    },
+    "transfer_boundary": "methodological_controls_only"
+  },
+  "claims": [
+    {
+      "claim_id": "DM-EXCHANGE-001",
+      "claim": "Matching subset-DP in MatchingGraph.feasible_masks agrees with an independent matching recurrence on all labeled simple graphs with n=5.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "1024 labeled simple graphs on n=5",
+      "source_path": "src/delta_matroid/matching.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37986817525 (48 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "disposition": "CONFIRMED",
+      "limits": "Finite n=5 only; does not establish asymptotic complexity or universal implementation equivalence.",
+      "verified_commit": "c5b618007dd4273ec1c1f4d12b2976885a1d3c8d"
+    },
+    {
+      "claim_id": "DM-EXCHANGE-002",
+      "claim": "DeltaMatroid constructor acceptance agrees with an independent symmetric-exchange predicate over every nonempty set family on n=3.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "255 nonempty set systems on n=3",
+      "source_path": "src/delta_matroid/core.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37986817525 (48 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "disposition": "CONFIRMED",
+      "limits": "Finite n=3 only.",
+      "verified_commit": "c5b618007dd4273ec1c1f4d12b2976885a1d3c8d"
+    },
+    {
+      "claim_id": "DM-THEORY-001",
+      "claim": "On all n=3 delta-matroids tested, the implemented Theorem-A-related predicates agree: weak Wenzel, hyperplane exchange, parity-completed lift even-delta status, and the antipode condition.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "All nonempty delta-matroid families on n=3",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37986817525 (48 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "disposition": "CONFIRMED",
+      "limits": "Empirical finite-domain confirmation of theorem characterisations, not an independent proof of the theorem.",
+      "verified_commit": "c5b618007dd4273ec1c1f4d12b2976885a1d3c8d"
+    },
+    {
+      "claim_id": "DM-THEORY-002",
+      "claim": "On all n=3 even delta-matroids tested, Wenzel and hyperplane-even exchange agree.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "All n=3 even delta-matroids",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37986817525 (48 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "disposition": "CONFIRMED",
+      "limits": "Finite-domain experimental confirmation only.",
+      "verified_commit": "c5b618007dd4273ec1c1f4d12b2976885a1d3c8d"
+    },
+    {
+      "claim_id": "DM-EXCHANGE-003",
+      "claim": "The lazy BitmaskExchangeEngine neighbor relation agrees with the independent dmlib exchange-neighbor oracle on the tested n=7 matching family.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "DIFFERENTIAL",
+      "scope": "One independently specified n=7 matching graph family",
+      "source_path": "src/delta_matroid/exchange.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37986817525 (48 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "disposition": "CONFIRMED",
+      "limits": "Targeted family, not exhaustive over all n=7 families.",
+      "verified_commit": "c5b618007dd4273ec1c1f4d12b2976885a1d3c8d"
+    },
+    {
+      "claim_id": "DM-ALGEBRA-001",
+      "claim": "The repository modular determinant agrees with the independent dmlib determinant on fixed integer matrices over F_101.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "DIFFERENTIAL",
+      "scope": "Three fixed matrices",
+      "source_path": "src/delta_matroid/field.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37986817525 (48 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "disposition": "CONFIRMED",
+      "limits": "Targeted matrices and modulus only.",
+      "verified_commit": "c5b618007dd4273ec1c1f4d12b2976885a1d3c8d"
+    },
+    {
+      "claim_id": "DM-REGRESSION-001",
+      "claim": "The historical unordered-pair weak verifier is not a sound replacement for full symmetric exchange.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "REGRESSION",
+      "scope": "Counterexample family {1,2,3,4}",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37986817525 (48 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "disposition": "REGRESSION",
+      "limits": "Protects a known counterexample; does not characterize all unsound verifier variants.",
+      "verified_commit": "c5b618007dd4273ec1c1f4d12b2976885a1d3c8d"
+    },
+    {
+      "claim_id": "DM-METHOD-001",
+      "claim": "Repository-level research claims should retain branch/commit provenance and distinguish evaluator result from scientific conclusion.",
+      "status": "ESTABLISHED",
+      "evidence_class": "OPERATING-PROTOCOL",
+      "scope": "Delta-bedrani research workflow",
+      "source_path": "docs/RESEARCH-OPERATING-CONTRACT-v0.1.md",
+      "external_reference": "Loofy147/Machine: docs/BRANCH-EVIDENCE-AND-RESEARCH-HANDLING.md; docs/EVIDENCE-SPECIFICATION-DISPOSITION-CONTRACT-v0.1.md; docs/RESEARCH-STATE-CANONICALIZATION-v0.1.md",
+      "disposition": "CONFIRMED",
+      "limits": "Methodological control; not a mathematical result.",
+      "verified_commit": "c5b618007dd4273ec1c1f4d12b2976885a1d3c8d"
+    },
+    {
+      "claim_id": "DM-REP-001",
+      "claim": "binary_representable agrees with exhaustive enumeration of symmetric GF(2) matrices and all their twists for every parity-uniform family on n=4.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "All parity-uniform families on n=4; all 2^(4*5/2) symmetric GF(2) matrices and all twists",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37986817525 (48 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "disposition": "CONFIRMED",
+      "limits": "Finite n=4 and the implemented principal-minor/twist model only.",
+      "verified_commit": "c5b618007dd4273ec1c1f4d12b2976885a1d3c8d"
+    },
+    {
+      "claim_id": "DM-REP-002",
+      "claim": "ternary_representable agrees with exhaustive enumeration of skew-symmetric GF(3) matrices and all their twists for every parity-uniform family on n=4.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "All parity-uniform families on n=4; all 3^6 skew upper-triangular GF(3) assignments and all twists",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37986817525 (48 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "disposition": "CONFIRMED",
+      "limits": "Finite n=4 and the implemented GF(3) sign-normalized model; larger n and cap-limited cases remain outside this exhaustive evidence.",
+      "verified_commit": "c5b618007dd4273ec1c1f4d12b2976885a1d3c8d"
+    },
+    {
+      "claim_id": "DM-ORACLE-001",
+      "claim": "ternary_representable preserves later decidable twists after a cap-limited candidate is skipped, returning UNKNOWN only when no later candidate establishes representability.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "REGRESSION",
+      "scope": "Controlled n=5 regression with cap=1",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37986817525 (48 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "disposition": "REGRESSION",
+      "limits": "Protects the discovered early-return failure mode; does not prove all cap-edge cases.",
+      "verified_commit": "c5b618007dd4273ec1c1f4d12b2976885a1d3c8d"
+    },
+    {
+      "claim_id": "DM-THEORY-003",
+      "claim": "On all n=4 delta-matroids tested, the independent Theorem-A characterisations agree: weak Wenzel, hyperplane exchange, parity-completed lift even-delta status, and the peerless-antipode condition.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "All 5959 nonempty delta-matroid families on n=4",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37986817525 (48 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "verified_commit": "c5b618007dd4273ec1c1f4d12b2976885a1d3c8d",
+      "disposition": "CONFIRMED",
+      "limits": "Empirical finite-domain confirmation of theorem characterisations, not an independent proof of the theorem; covers Theorem A items represented by these four predicates, not the isolated-antipode item."
+    },
+    {
+      "claim_id": "DM-THEORY-004",
+      "claim": "On all n=4 even delta-matroids tested, Wenzel and hyperplane-even exchange agree.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "All 294 even delta-matroid families on n=4",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37986817525 (48 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "verified_commit": "c5b618007dd4273ec1c1f4d12b2976885a1d3c8d",
+      "disposition": "CONFIRMED",
+      "limits": "Finite-domain experimental confirmation only."
+    },
+    {
+      "claim_id": "DM-THEORY-005",
+      "claim": "The fifth Theorem A antipode condition agrees with the independent strong-delta-matroid reference (symmetric exchange plus hyperplane exchange) on every nonempty n=4 set system.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "All 65,535 nonempty set systems on n=4",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37986817525 (48 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "verified_commit": "c5b618007dd4273ec1c1f4d12b2976885a1d3c8d",
+      "disposition": "CONFIRMED",
+      "limits": "The isolated-antipode clause for dimensions >=5 is vacuous at n=4; the n=4 sweep verifies the equivalence of the combined condition with the strong-delta-matroid reference on this finite domain."
+    },
+    {
+      "claim_id": "DM-ANTIPODE-001",
+      "claim": "has_isolated_antipode agrees with the interval definition on all n=5 set systems with one to four feasible masks, plus a full 5-cube boundary fixture.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "All 41,448 n=5 set systems with one to four feasible masks, plus the full 5-cube boundary fixture",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37986817525 (48 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "verified_commit": "c5b618007dd4273ec1c1f4d12b2976885a1d3c8d",
+      "disposition": "REGRESSION",
+      "limits": "Finite restricted family-size domain only; not exhaustive over all n=5 set systems or higher dimensions."
+    },
+    {
+      "claim_id": "DM-THEORY-006",
+      "claim": "Theorem A item 5's antipode condition agrees with the strong-exchange reference on every n=5 set system with one to four feasible sets.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "All 41,448 nonempty set systems on a 5-element ground set with one to four feasible sets",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37986817525 (48 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "verified_commit": "c5b618007dd4273ec1c1f4d12b2976885a1d3c8d",
+      "disposition": "CONFIRMED",
+      "limits": "Exhaustive only for families with at most four feasible masks; does not imply closure for larger feasible families or higher n."
+    },
+    {
+      "claim_id": "DM-THEORY-007",
+      "claim": "Theorem A item 5's antipode condition agrees with the strong-exchange reference on every n=6 set system with one to three feasible sets.",
+      "status": "EXPERIMENTALLY_SUPPORTED",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "All 43,744 nonempty set systems on a 6-element ground set with one to three feasible sets",
+      "source_path": "verification/dmlib.py",
+      "verification_path": "tests/test_dmlib_oracle.py",
+      "verification_run": "github-actions:37986817525 (48 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "verified_commit": "c5b618007dd4273ec1c1f4d12b2976885a1d3c8d",
+      "disposition": "CONFIRMED",
+      "limits": "Finite restricted family-size domain only. Does not imply equivalence over all set systems on n=6 or any unbounded domain."
+    }
+  ],
+  "verification_context": {
+    "run": "github-actions:37986817525",
+    "test_suite": "48 passed in each of Python 3.10, 3.11, 3.12, and 3.13",
+    "workflow_disposition": "SUCCESS",
+    "evidence_gate": "PASS",
+    "note": "All 48 tests and the claim-registry integrity gate passed in every matrix job. Test/oracle tree is c5b618007dd4273ec1c1f4d12b2976885a1d3c8d; verified run head is 0905968b44889c27d69ec3d547ba6a676702aba8."
+  }
+}
