@@ -4,8 +4,8 @@
   "project": {
     "repository": "Loofy147/Delta-bedrani",
     "branch": "feature/exchange-engine-v0",
-    "head": "7d55c6d6e259b3d4eb026f09b751a33ebd81381a",
-    "verified_head": "7d55c6d6e259b3d4eb026f09b751a33ebd81381a"
+    "head": "51098b40e188eed9fed60485413903527cc18896",
+    "verified_head": "51098b40e188eed9fed60485413903527cc18896"
   },
   "external_method_reference": {
     "repository": "Loofy147/Machine",
@@ -30,10 +30,10 @@
       "scope": "1024 labeled simple graphs on n=5",
       "source_path": "src/delta_matroid/matching.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37985896369 (45 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "verification_run": "github-actions:37986114237 (46 tests passed on each Python version; evidence gate then correctly rejected stale paths)",
       "disposition": "CONFIRMED",
       "limits": "Finite n=5 only; does not establish asymptotic complexity or universal implementation equivalence.",
-      "verified_commit": "a32a148ab05e6eeeb7a04226fa0fc36f9a39b1e5"
+      "verified_commit": "51098b40e188eed9fed60485413903527cc18896"
     },
     {
       "claim_id": "DM-EXCHANGE-002",
@@ -43,10 +43,10 @@
       "scope": "255 nonempty set systems on n=3",
       "source_path": "src/delta_matroid/core.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37985896369 (45 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "verification_run": "github-actions:37986114237 (46 tests passed on each Python version; evidence gate then correctly rejected stale paths)",
       "disposition": "CONFIRMED",
       "limits": "Finite n=3 only.",
-      "verified_commit": "a32a148ab05e6eeeb7a04226fa0fc36f9a39b1e5"
+      "verified_commit": "51098b40e188eed9fed60485413903527cc18896"
     },
     {
       "claim_id": "DM-THEORY-001",
@@ -56,10 +56,10 @@
       "scope": "All nonempty delta-matroid families on n=3",
       "source_path": "verification/dmlib.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37985896369 (45 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "verification_run": "github-actions:37986114237 (46 tests passed on each Python version; evidence gate then correctly rejected stale paths)",
       "disposition": "CONFIRMED",
       "limits": "Empirical finite-domain confirmation of theorem characterisations, not an independent proof of the theorem.",
-      "verified_commit": "a32a148ab05e6eeeb7a04226fa0fc36f9a39b1e5"
+      "verified_commit": "51098b40e188eed9fed60485413903527cc18896"
     },
     {
       "claim_id": "DM-THEORY-002",
@@ -69,10 +69,10 @@
       "scope": "All n=3 even delta-matroids",
       "source_path": "verification/dmlib.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37985896369 (45 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "verification_run": "github-actions:37986114237 (46 tests passed on each Python version; evidence gate then correctly rejected stale paths)",
       "disposition": "CONFIRMED",
       "limits": "Finite-domain experimental confirmation only.",
-      "verified_commit": "a32a148ab05e6eeeb7a04226fa0fc36f9a39b1e5"
+      "verified_commit": "51098b40e188eed9fed60485413903527cc18896"
     },
     {
       "claim_id": "DM-EXCHANGE-003",
@@ -82,10 +82,10 @@
       "scope": "One independently specified n=7 matching graph family",
       "source_path": "src/delta_matroid/exchange.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37985896369 (45 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "verification_run": "github-actions:37986114237 (46 tests passed on each Python version; evidence gate then correctly rejected stale paths)",
       "disposition": "CONFIRMED",
       "limits": "Targeted family, not exhaustive over all n=7 families.",
-      "verified_commit": "a32a148ab05e6eeeb7a04226fa0fc36f9a39b1e5"
+      "verified_commit": "51098b40e188eed9fed60485413903527cc18896"
     },
     {
       "claim_id": "DM-ALGEBRA-001",
@@ -95,10 +95,10 @@
       "scope": "Three fixed matrices",
       "source_path": "src/delta_matroid/field.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37985896369 (45 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "verification_run": "github-actions:37986114237 (46 tests passed on each Python version; evidence gate then correctly rejected stale paths)",
       "disposition": "CONFIRMED",
       "limits": "Targeted matrices and modulus only.",
-      "verified_commit": "a32a148ab05e6eeeb7a04226fa0fc36f9a39b1e5"
+      "verified_commit": "51098b40e188eed9fed60485413903527cc18896"
     },
     {
       "claim_id": "DM-REGRESSION-001",
@@ -108,10 +108,10 @@
       "scope": "Counterexample family {1,2,3,4}",
       "source_path": "verification/dmlib.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37985896369 (45 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "verification_run": "github-actions:37986114237 (46 tests passed on each Python version; evidence gate then correctly rejected stale paths)",
       "disposition": "REGRESSION",
       "limits": "Protects a known counterexample; does not characterize all unsound verifier variants.",
-      "verified_commit": "a32a148ab05e6eeeb7a04226fa0fc36f9a39b1e5"
+      "verified_commit": "51098b40e188eed9fed60485413903527cc18896"
     },
     {
       "claim_id": "DM-METHOD-001",
@@ -123,7 +123,7 @@
       "external_reference": "Loofy147/Machine: docs/BRANCH-EVIDENCE-AND-RESEARCH-HANDLING.md; docs/EVIDENCE-SPECIFICATION-DISPOSITION-CONTRACT-v0.1.md; docs/RESEARCH-STATE-CANONICALIZATION-v0.1.md",
       "disposition": "CONFIRMED",
       "limits": "Methodological control; not a mathematical result.",
-      "verified_commit": "a32a148ab05e6eeeb7a04226fa0fc36f9a39b1e5"
+      "verified_commit": "51098b40e188eed9fed60485413903527cc18896"
     },
     {
       "claim_id": "DM-REP-001",
@@ -133,10 +133,10 @@
       "scope": "All parity-uniform families on n=4; all 2^(4*5/2) symmetric GF(2) matrices and all twists",
       "source_path": "verification/dmlib.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37985896369 (45 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "verification_run": "github-actions:37986114237 (46 tests passed on each Python version; evidence gate then correctly rejected stale paths)",
       "disposition": "CONFIRMED",
       "limits": "Finite n=4 and the implemented principal-minor/twist model only.",
-      "verified_commit": "a32a148ab05e6eeeb7a04226fa0fc36f9a39b1e5"
+      "verified_commit": "51098b40e188eed9fed60485413903527cc18896"
     },
     {
       "claim_id": "DM-REP-002",
@@ -146,10 +146,10 @@
       "scope": "All parity-uniform families on n=4; all 3^6 skew upper-triangular GF(3) assignments and all twists",
       "source_path": "verification/dmlib.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37985896369 (45 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "verification_run": "github-actions:37986114237 (46 tests passed on each Python version; evidence gate then correctly rejected stale paths)",
       "disposition": "CONFIRMED",
       "limits": "Finite n=4 and the implemented GF(3) sign-normalized model; larger n and cap-limited cases remain outside this exhaustive evidence.",
-      "verified_commit": "a32a148ab05e6eeeb7a04226fa0fc36f9a39b1e5"
+      "verified_commit": "51098b40e188eed9fed60485413903527cc18896"
     },
     {
       "claim_id": "DM-ORACLE-001",
@@ -159,10 +159,10 @@
       "scope": "Controlled n=5 regression with cap=1",
       "source_path": "verification/dmlib.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37985896369 (45 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
+      "verification_run": "github-actions:37986114237 (46 tests passed on each Python version; evidence gate then correctly rejected stale paths)",
       "disposition": "REGRESSION",
       "limits": "Protects the discovered early-return failure mode; does not prove all cap-edge cases.",
-      "verified_commit": "a32a148ab05e6eeeb7a04226fa0fc36f9a39b1e5"
+      "verified_commit": "51098b40e188eed9fed60485413903527cc18896"
     },
     {
       "claim_id": "DM-THEORY-003",
@@ -172,8 +172,8 @@
       "scope": "All 5959 nonempty delta-matroid families on n=4",
       "source_path": "verification/dmlib.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37985896369 (45 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
-      "verified_commit": "a32a148ab05e6eeeb7a04226fa0fc36f9a39b1e5",
+      "verification_run": "github-actions:37986114237 (46 tests passed on each Python version; evidence gate then correctly rejected stale paths)",
+      "verified_commit": "51098b40e188eed9fed60485413903527cc18896",
       "disposition": "CONFIRMED",
       "limits": "Empirical finite-domain confirmation of theorem characterisations, not an independent proof of the theorem; covers Theorem A items represented by these four predicates, not the isolated-antipode item."
     },
@@ -185,43 +185,43 @@
       "scope": "All 294 even delta-matroid families on n=4",
       "source_path": "verification/dmlib.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37985896369 (45 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
-      "verified_commit": "a32a148ab05e6eeeb7a04226fa0fc36f9a39b1e5",
+      "verification_run": "github-actions:37986114237 (46 tests passed on each Python version; evidence gate then correctly rejected stale paths)",
+      "verified_commit": "51098b40e188eed9fed60485413903527cc18896",
       "disposition": "CONFIRMED",
       "limits": "Finite-domain experimental confirmation only."
     },
     {
       "claim_id": "DM-THEORY-005",
-      "claim": "The fifth Theorem A antipode condition agrees with hyperplane exchange for every n=4 delta-matroid checked.",
+      "claim": "The fifth Theorem A antipode condition agrees with the independent strong-delta-matroid reference (symmetric exchange plus hyperplane exchange) on every nonempty n=4 set system.",
       "status": "EXPERIMENTALLY_SUPPORTED",
       "evidence_class": "EXHAUSTIVE-FINITE",
-      "scope": "All 5959 nonempty delta-matroid families on n=4",
+      "scope": "All 65,535 nonempty set systems on n=4",
       "source_path": "verification/dmlib.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37985896369 (45 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
-      "verified_commit": "a32a148ab05e6eeeb7a04226fa0fc36f9a39b1e5",
+      "verification_run": "github-actions:37986114237 (46 tests passed on each Python version; evidence gate then correctly rejected stale paths)",
+      "verified_commit": "51098b40e188eed9fed60485413903527cc18896",
       "disposition": "CONFIRMED",
-      "limits": "The isolated-antipode clause for dimensions >=5 is vacuous when n=4; this claim confirms only the complete fifth condition on that finite domain, not the higher-dimensional clause."
+      "limits": "The isolated-antipode clause for dimensions >=5 is vacuous at n=4; the n=4 sweep verifies the equivalence of the combined condition with the strong-delta-matroid reference on this finite domain."
     },
     {
       "claim_id": "DM-ANTIPODE-001",
-      "claim": "has_isolated_antipode matches the interval definition on controlled 5-cube fixtures: an opposite pair alone is isolated; adding an in-interval feasible set breaks isolation; the full cube has no isolated antipode.",
+      "claim": "has_isolated_antipode agrees with the interval definition on all n=5 set systems containing one to three feasible masks, with a full-cube boundary fixture.",
       "status": "EXPERIMENTALLY_SUPPORTED",
-      "evidence_class": "REGRESSION",
-      "scope": "Three controlled set-system fixtures on n=5",
+      "evidence_class": "EXHAUSTIVE-FINITE",
+      "scope": "All 5,488 n=5 set systems with one to three feasible masks, plus the full 5-cube boundary fixture",
       "source_path": "verification/dmlib.py",
       "verification_path": "tests/test_dmlib_oracle.py",
-      "verification_run": "github-actions:37985896369 (45 passed; evidence gate PASS on Python 3.10, 3.11, 3.12, and 3.13)",
-      "verified_commit": "a32a148ab05e6eeeb7a04226fa0fc36f9a39b1e5",
+      "verification_run": "github-actions:37986114237 (46 tests passed on each Python version; evidence gate then correctly rejected stale paths)",
+      "verified_commit": "51098b40e188eed9fed60485413903527cc18896",
       "disposition": "REGRESSION",
-      "limits": "Targeted semantic fixtures only; not exhaustive over all set systems on n=5 or all higher dimensions."
+      "limits": "Finite restricted family-size domain only; not exhaustive over all n=5 set systems or higher dimensions."
     }
   ],
   "verification_context": {
-    "run": "github-actions:37985896369",
-    "test_suite": "45 passed in each of Python 3.10, 3.11, 3.12, and 3.13",
-    "workflow_disposition": "SUCCESS",
-    "evidence_gate": "PASS",
-    "note": "All four matrix jobs passed the test suite and claim-registry integrity gate. Run head is 7d55c6d6e259b3d4eb026f09b751a33ebd81381a."
+    "run": "github-actions:37986114237",
+    "test_suite": "46 passed on each of Python 3.10, 3.11, 3.12, and 3.13",
+    "workflow_disposition": "GATE_REJECTED_STALE_REGISTRY",
+    "evidence_gate": "EXPECTED_FAILURE_BEFORE_REBIND",
+    "note": "All matrix jobs reached and passed the 46-test suite; the evidence gate rejected the known stale verification_path binding after tests/test_dmlib_oracle.py changed. Clean registry-bound CI is pending."
   }
 }
