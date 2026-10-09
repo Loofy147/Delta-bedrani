@@ -131,6 +131,72 @@ def antipode_strong(F) -> bool:
                 groups[(I & J, I | J)] += 1
     return all(c >= 2 for c in groups.values())
 
+
+def has_peerless_antipode(F, min_dimension=3, max_dimension=None) -> bool:
+    """Return whether a cube in the requested dimension range has one antipode.
+
+    Two feasible masks are antipodes in the cube determined by their
+    intersection and union. A cube is peerless when exactly one unordered
+    feasible pair has that same intersection and union.
+    """
+    if min_dimension < 1:
+        raise ValueError("min_dimension must be >= 1")
+    if max_dimension is not None and max_dimension < min_dimension:
+        raise ValueError("max_dimension must be >= min_dimension")
+
+    Fl = tuple(F)
+    counts = {}
+    for i, A in enumerate(Fl):
+        for B in Fl[i + 1:]:
+            dimension = pc(A ^ B)
+            if dimension < min_dimension:
+                continue
+            if max_dimension is not None and dimension > max_dimension:
+                continue
+            face = (A & B, A | B)
+            counts[face] = counts.get(face, 0) + 1
+    return any(count == 1 for count in counts.values())
+
+
+def has_isolated_antipode(F, min_dimension=5) -> bool:
+    """Return whether a cube of dimension >= min_dimension has an isolated antipode.
+
+    A feasible pair (A, B) is isolated exactly when the only feasible masks
+    S in its interval, A & B <= S <= A | B, are A and B themselves.
+    """
+    if min_dimension < 1:
+        raise ValueError("min_dimension must be >= 1")
+
+    Fl = tuple(F)
+    for i, A in enumerate(Fl):
+        for B in Fl[i + 1:]:
+            if pc(A ^ B) < min_dimension:
+                continue
+            lower, upper = A & B, A | B
+            if all(
+                S in (A, B)
+                or (S & lower) != lower
+                or (S | upper) != upper
+                for S in Fl
+            ):
+                return True
+    return False
+
+
+def theorem_a_local_antipode_condition(F) -> bool:
+    """Theorem A item 5's antipode condition for an arbitrary set system.
+
+    It requires no peerless antipodes in 3- or 4-cubes and no isolated
+    antipodes in cubes of dimension 5 or higher. Its equivalence to being a
+    strong delta-matroid is a mathematical theorem, not established by this
+    predicate alone.
+    """
+    return (
+        not has_peerless_antipode(F, min_dimension=3, max_dimension=4)
+        and not has_isolated_antipode(F, min_dimension=5)
+    )
+
+
 def twist(F, X):
     return {s ^ X for s in F}
 
