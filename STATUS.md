@@ -54,7 +54,8 @@ Date: 2026-10-08
 - Targeted n=5 regressions cover an isolated opposite pair, an added in-interval feasible set that destroys isolation, and the full 5-cube.
 - Exhaustive n=4 check: the fifth characterization agrees with the independent strong-delta-matroid reference on all 65,535 nonempty set systems. The dimension-5+ clause is necessarily vacuous at n=4.
 - Exhaustive restricted n=5 check: `has_isolated_antipode` agrees with the interval definition, and Theorem A item 5 agrees with the strong-exchange reference, on all 41,448 nonempty set systems with at most four feasible masks, plus the full 5-cube boundary fixture. This does not exhaust all n=5 set systems.
-- Current CI run `37986525183` passed all 47 tests under Python 3.10, 3.11, 3.12, and 3.13, with the claim-registry integrity gate passing in every matrix job.
+- Exhaustive restricted n=6 check: Theorem A item 5 agrees with the strong-exchange reference on all 43,744 nonempty set systems with at most three feasible masks. This exercises dimension-5 and dimension-6 intervals with fixed coordinates, but does not exhaust all n=6 set systems.
+- Current CI run `37986817525` passed all 48 tests under Python 3.10, 3.11, 3.12, and 3.13, with the claim-registry integrity gate passing in every matrix job.
 
 ## Current implementation hardening
 
