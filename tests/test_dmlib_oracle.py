@@ -228,3 +228,33 @@ def test_ternary_representability_matches_exhaustive_gf3_skew_matrices_for_all_n
     represented = _all_twists(_all_gf3_skew_families(n), n)
     for family in _even_uniform_families(n):
         assert ternary_representable(set(family), n, p=3) is (family in represented)
+
+
+def test_isolated_antipode_requires_exactly_two_feasible_sets_in_the_interval():
+    from verification.dmlib import has_isolated_antipode, theorem_a_local_antipode_condition
+
+    # In the 5-cube, opposite vertices are isolated only when no third
+    # feasible set lies anywhere in their interval.
+    assert has_isolated_antipode({0, 31}, min_dimension=5)
+    assert not theorem_a_local_antipode_condition({0, 31})
+
+    # A third feasible set breaks isolation in that same interval.
+    assert not has_isolated_antipode({0, 31, 1}, min_dimension=5)
+
+    # The complete cube has no isolated antipodes and no peerless 3-/4-cube.
+    full_cube = set(range(32))
+    assert not has_isolated_antipode(full_cube, min_dimension=5)
+    assert theorem_a_local_antipode_condition(full_cube)
+
+
+def test_theorem_a_fifth_characterization_matches_strong_status_for_all_n4_delta_matroids():
+    from verification.dmlib import theorem_a_local_antipode_condition
+
+    n = 4
+    checked = 0
+    for family in all_families(n):
+        if not is_delta(family):
+            continue
+        checked += 1
+        assert theorem_a_local_antipode_condition(family) is hyperplane_delta(family)
+    assert checked == 5959
