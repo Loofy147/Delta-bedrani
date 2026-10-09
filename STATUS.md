@@ -47,6 +47,14 @@ Date: 2026-10-08
 - The corrected oracle passes the controlled n=5 regression and the full test suite.
 - `binary_representable()` and `ternary_representable()` were cross-checked against exhaustive finite-field matrix enumeration for every parity-uniform family on n=4.
 - The n=4 representability suite remains fast enough for the normal matrix CI: all four Python jobs passed with 38 tests.
+## Theorem A item 5 — isolated antipodes — 2026-10-09
+
+- Added the independent predicate `has_isolated_antipode(F, min_dimension=5)`, defined directly from the paper's interval criterion: for a feasible antipodal pair (A, B), the interval `A & B <= S <= A | B` contains no other feasible set.
+- Added `theorem_a_local_antipode_condition(F)`: no peerless antipodes in 3- or 4-cubes and no isolated antipodes in cubes of dimension at least 5.
+- Targeted n=5 regressions cover an isolated opposite pair, an added in-interval feasible set that destroys isolation, and the full 5-cube.
+- Exhaustive n=4 check: the fifth characterization agrees with hyperplane exchange on all 5,959 nonempty delta-matroids. The dimension-5+ clause is necessarily vacuous at n=4; the n=5 fixtures test its predicate semantics but are not exhaustive over all n=5 set systems.
+- Current CI run `37985896369` passed all 45 tests under Python 3.10, 3.11, 3.12, and 3.13, with the claim-registry integrity gate passing in every matrix job.
+
 ## Current implementation hardening
 
 - Exact exchange distance for parity-uniform delta-matroids is derived from symmetric exchange plus parity: `d(A,B) = |A Delta B|/2`.
