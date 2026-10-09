@@ -266,7 +266,7 @@ def test_isolated_antipode_predicate_matches_every_n5_family_of_size_at_most_thr
     # opposite vertices, whose interval is the entire cube. Such a pair is
     # isolated exactly when it is the whole feasible family (of size two).
     checked = 0
-    for size in (1, 2, 3):
+    for size in (1, 2, 3, 4):
         for family_tuple in combinations(range(32), size):
             family = set(family_tuple)
             expected = (
@@ -275,4 +275,17 @@ def test_isolated_antipode_predicate_matches_every_n5_family_of_size_at_most_thr
             )
             assert has_isolated_antipode(family, min_dimension=5) is expected
             checked += 1
-    assert checked == 5488
+    assert checked == 41448
+
+
+def test_theorem_a_item5_matches_strong_exchange_on_all_n5_systems_with_at_most_four_feasible_sets():
+    from verification.dmlib import theorem_a_local_antipode_condition
+
+    checked = 0
+    for size in (1, 2, 3, 4):
+        for family_tuple in combinations(range(32), size):
+            family = set(family_tuple)
+            expected = is_delta(family) and hyperplane_delta(family)
+            assert theorem_a_local_antipode_condition(family) is expected, sorted(family)
+            checked += 1
+    assert checked == 41448
